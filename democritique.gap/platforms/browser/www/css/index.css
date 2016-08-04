@@ -1,0 +1,803 @@
+@charset "UTF-8";
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+@import url(http://fonts.googleapis.com/css?family=Varela+Round);
+* {
+  -webkit-tap-highlight-color: transparent;
+  /* make transparent link selection, adjust last value opacity 0 to 1.0 */ }
+
+img {
+  opacity: 0.38; }
+
+body {
+  -webkit-touch-callout: none;
+  /* prevent callout to copy image, etc when tap to hold */
+  -webkit-text-size-adjust: none;
+  /* prevent webkit from resizing text to fit */
+  -webkit-user-select: none;
+  /* prevent copy paste, to allow, change 'none' to 'text' */
+  background-color: #303030;
+  background-attachment: fixed;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 12px;
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+  text-transform: none;
+  width: 100%;
+  /*border-top:solid 20px black;*/ }
+
+/* Portrait layout (default) */
+.app {
+  background: url(../img/logo.svg) no-repeat center top;
+  /* 170px x 200px */
+  position: absolute;
+  /* position in the center of the screen */
+  left: 50%;
+  top: 50%;
+  margin-left: -50%;
+  margin-top: -25%;
+  height: 50px;
+  /* text area height */
+  width: 100%;
+  /* text area width */
+  text-align: center;
+  padding: 180px 0px 0px 0px;
+  /* image height is 200px (bottom 20px are overlapped with text) */ }
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1 / 1) and (min-width: 400px) {
+  .app {
+    background-position: left center;
+    padding: 75px 0px 75px 170px;
+    /* padding-top + padding-bottom + text area = image height */
+    margin: -90px 0px 0px -198px;
+    /* offset vertical: half of image height */
+    /* offset horizontal: half of image width and text area width */ } }
+h1 {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0px;
+  overflow: visible;
+  padding: 0px;
+  text-align: center; }
+
+.event {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  color: #FFFFFF;
+  font-size: 12px;
+  margin: 0px 30px;
+  padding: 2px 0px; }
+
+.event.listening {
+  background-color: #333333;
+  display: block; }
+
+.event.received {
+  background-color: #4B946A;
+  display: none; }
+
+@keyframes fade {
+  from {
+    opacity: 1.0; }
+  50% {
+    opacity: 0.4; }
+  to {
+    opacity: 1.0; } }
+@-webkit-keyframes fade {
+  from {
+    opacity: 1.0; }
+  50% {
+    opacity: 0.4; }
+  to {
+    opacity: 1.0; } }
+.blink {
+  animation: fade 3000ms infinite;
+  -webkit-animation: fade 3000ms infinite; }
+
+#header {
+  position: fixed;
+  float: top;
+  background-color: #212121;
+  width: 100%;
+  height: 48px;
+  z-index: 100;
+  /* background:url(../img/logo.svg) no-repeat center center;
+   background-size: 50%;*/ }
+
+#headerlogo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(../img/logo.svg) no-repeat center center;
+  background-size: 50%; }
+
+#karma {
+  display: none; }
+
+#menubutton {
+  display: inline-block;
+  position: absolute;
+  left: 2%;
+  top: 10%;
+  height: 32px;
+  width: 32px; }
+
+#closebutton {
+  display: none;
+  position: absolute;
+  left: 89%;
+  top: 10%;
+  width: 32px;
+  height: 32px;
+  z-index: 100; }
+
+#results {
+  width: 100%;
+  margin: 0px;
+  padding-top: 55px;
+  overflow-x: hidden; }
+
+.result {
+  padding: 0px;
+  margin: 0px;
+  margin-left: 5px;
+  margin-right: 5px;
+  background-color: #424242;
+  border-left: 5px solid #FF1744; }
+
+.resultheader {
+  margin: 0px 0 -10px 0;
+  padding: 12px 0 12px 0;
+  color: white;
+  font-size: 14px;
+  /*border-radius: 20px 20px 0 0;*/
+  max-width: 100%; }
+  .resultheader p {
+    margin: 0px 10px; }
+
+.resultbody {
+  margin: 0;
+  margin-bottom: -40px;
+  padding: 12px 0 0 0;
+  color: rgba(255, 255, 255, 0.8);
+  /*border-radius: 0 0 20px 20px;*/
+  max-width: 100%; }
+
+.resultbody p, .resultbody a {
+  margin: 10px;
+  padding-bottom: 10px;
+  margin-top: -5px;
+  color: rgba(255, 255, 255, 0.7); }
+
+.resultbodytext {
+  display: inline-block;
+  font-size: 12px;
+  vertical-align: top;
+  width: 50%; }
+
+.resultbuttons {
+  display: inline-block;
+  width: 38%;
+  text-align: center;
+  margin-left: 35px;
+  margin-top: -15px;
+  padding-bottom: 24px; }
+
+.buttontable {
+  display: inline-block;
+  width: 30%; }
+
+.divisor {
+  width: 100%;
+  height: 5px;
+  margin: 0px;
+  background-color: #303030; }
+
+.comdiv {
+  width: 0%;
+  margin: 0px;
+  margin-top: 5px;
+  border-bottom: 3px solid #303030; }
+
+.commentdivisor {
+  width: 100%;
+  margin: 0px;
+  border-bottom: 3px solid #303030; }
+
+.Utrikesdepartementet {
+  border-left: 5px solid #009688; }
+
+.Arbetsmarknadsdepartementet {
+  border-left: 5px solid #FF3D00; }
+
+.Näringsdepartementet {
+  border-left: 5px solid #FFAB00; }
+
+.Försvarsdepartementet {
+  border-left: 5px solid #EEFF41; }
+
+.Kulturdepartementet {
+  border-left: 5px solid #7B1FA2; }
+
+.Justitiedepartementet {
+  border-left: 5px solid #607D8B; }
+
+.Finansdepartementet, .None {
+  border-left: 5px solid #76FF03; }
+
+.Socialdepartementet {
+  border-left: 5px solid #FF4081; }
+
+.Miljö- {
+  border-left: 5px solid #76FF03; }
+
+.Utbildningsdepartementet {
+  border-left: 5px solid #3F51B5; }
+
+/*#doclink, #commentlink {
+
+    position: relative;
+    display: none;
+    width: 43%;
+
+    img {
+        width: 48px;
+        height: 48px;
+        display: inline-block;
+        }
+
+    a,p {
+
+        font-size: 14px;
+        display: inline-block;
+        vertical-align: top;
+        padding-top: 20px;
+    }
+}*/
+.comments {
+  height: 80%;
+  overflow-y: scroll;
+  overflow-x: hidden; }
+
+#postcomment {
+  color: rgba(255, 255, 255, 0.38);
+  font-family: 'Varela Round', sans-serif;
+  font-size: 18px; }
+
+#commentfield {
+  margin-top: 10%;
+  font-family: 'Varela Round', sans-serif;
+  font-size: 18px;
+  width: 90%;
+  margin-left: 5%;
+  height: 50%;
+  background-color: transparent;
+  border-style: none;
+  color: rgba(255, 255, 255, 0.9);
+  resize: none; }
+
+#postcommentbutton {
+  background-color: transparent;
+  height: 15%;
+  width: 80%;
+  color: rgba(255, 255, 255, 0.38);
+  font-family: 'Varela Round', sans-serif;
+  font-size: 18px;
+  border-radius: 10px;
+  border: 3px solid white;
+  margin-left: 10%; }
+
+::-webkit-input-placeholder {
+  color: rgba(255, 255, 255, 0.9); }
+
+:-moz-placeholder {
+  /* Firefox 18- */
+  color: rgba(255, 255, 255, 0.9); }
+
+::-moz-placeholder {
+  /* Firefox 19+ */
+  color: rgba(255, 255, 255, 0.9); }
+
+:-ms-input-placeholder {
+  color: rgba(255, 255, 255, 0.9); }
+
+.comment {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.9);
+  width: 100%;
+  border-left: 5px solid #76FF03;
+  padding: 10px;
+  /*border-bottom: 5px solid #303030;*/ }
+  .comment p {
+    margin: 0;
+    padding: 0; }
+
+.commentbuttons {
+  width: 30%;
+  position: relative;
+  right: -65%;
+  margin-top: -15px; }
+  .commentbuttons img {
+    width: 42px; }
+  .commentbuttons p {
+    width: 42px;
+    margin: 0;
+    margin-top: -5px; }
+
+.commentbuttontable {
+  display: inline-block;
+  width: 48px; }
+
+.buttontext {
+  text-align: center;
+  vertical-align: top;
+  color: rgba(255, 255, 255, 0.38); }
+
+.load-bar {
+  display: none;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 6px;
+  background-color: #fdba2c;
+  z-index: 999; }
+
+.bar {
+  content: "";
+  display: inline;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  left: 50%;
+  text-align: center; }
+
+.bar:nth-child(1) {
+  background-color: #da4733;
+  animation: loading 3s linear infinite; }
+
+.bar:nth-child(2) {
+  background-color: #3b78e7;
+  animation: loading 3s linear 1s infinite; }
+
+.bar:nth-child(3) {
+  background-color: #fdba2c;
+  animation: loading 3s linear 2s infinite; }
+
+@keyframes loading {
+  from {
+    left: 50%;
+    width: 0;
+    z-index: 100; }
+  33.3333% {
+    left: 0;
+    width: 100%;
+    z-index: 10; }
+  to {
+    left: 0;
+    width: 100%; } }
+.activatedresult {
+  width: 98%; }
+
+.reporttext {
+  display: none;
+  height: 38px;
+  padding-top: 5px;
+  overflow: hidden; }
+
+.extendedreporttext {
+  height: auto; }
+
+.longreporttext::before {
+  content: ""; }
+
+.longreporttext::before {
+  position: absolute;
+  left: 93%;
+  margin-top: 38px;
+  content: " ";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(255, 255, 255, 0.8);
+  animation: animationFrames ease-in-out 1s;
+  animation-iteration-count: 5;
+  transform-origin: 50% 50%;
+  animation-fill-mode: forwards;
+  /*when the spec is finished*/
+  -webkit-animation: animationFrames ease-in-out 1s;
+  -webkit-animation-iteration-count: 5;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode: forwards;
+  /*Chrome 16+, Safari 4+*/
+  -moz-animation: animationFrames ease-in-out 1s;
+  -moz-animation-iteration-count: 5;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode: forwards;
+  /*FF 5+*/
+  -o-animation: animationFrames ease-in-out 1s;
+  -o-animation-iteration-count: 5;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode: forwards;
+  /*Not implemented yet*/
+  -ms-animation: animationFrames ease-in-out 1s;
+  -ms-animation-iteration-count: 5;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode: forwards;
+  /*IE 10+*/ }
+
+@keyframes animationFrames {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-moz-keyframes animationFrames {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-webkit-keyframes animationFrames {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-o-keyframes animationFrames {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+@-ms-keyframes animationFrames {
+  0% {
+    opacity: 1; }
+  50% {
+    opacity: 0; }
+  100% {
+    opacity: 1; } }
+.timeline {
+  width: 100%;
+  margin-left: 5%;
+  display: none; }
+  .timeline div {
+    display: inline-block;
+    width: 20%; }
+  .timeline span {
+    padding: 4px 8px 4px 8px;
+    position: relative;
+    top: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    background-color: #424242;
+    font-size: 12px;
+    margin-left: 33px; }
+  .timeline p {
+    text-align: center;
+    width: 100%;
+    margin-top: 10px; }
+  .timeline .active span {
+    background-color: white;
+    color: #424242; }
+
+.timelineitem::after {
+  position: absolute;
+  content: ">";
+  margin-top: -56px;
+  margin-left: 3%; }
+
+.first::after {
+  content: ""; }
+
+.docrefs {
+  display: none;
+  width: 100%;
+  padding-top: 15px;
+  padding-bottom: 10px;
+  padding-left: 4%;
+  padding-right: 4%;
+  margin-left: 3%; }
+  .docrefs a {
+    text-decoration: none; }
+
+.docref::before {
+  position: absolute;
+  content: "X";
+  left: 0%;
+  margin-top: -1%;
+  border-radius: 50%;
+  background-color: #303030;
+  padding: 4px 7px 4px 7px; }
+
+.docref {
+  border: none; }
+
+.KD::before {
+  content: "KD";
+  background-color: #933192;
+  padding: 4px 3px 4px 3px; }
+
+.M::before {
+  content: "M";
+  background-color: #299BDA;
+  padding: 4px 5px 4px 5px; }
+
+.SD::before {
+  content: "SD";
+  background-color: #5FC8F3;
+  padding: 4px 3px 4px 3px; }
+
+.L::before {
+  content: "L";
+  background-color: #116AB5; }
+
+.V::before {
+  content: "V";
+  background-color: #FD0000; }
+
+.S::before {
+  content: "S";
+  background-color: #EC1B34; }
+
+.MP::before {
+  content: "MP";
+  background-color: #2B912C;
+  padding: 4px 3px 4px 3px; }
+
+.C::before {
+  content: "C";
+  background-color: #016A3A; }
+
+.Arbetsmarknadsdepartementet::before {
+  content: "AU";
+  padding: 4px 3px 4px 3px; }
+
+.Civilutskottet::before {
+  content: "CU";
+  padding: 4px 3px 4px 3px; }
+
+.Finansdepartementet::before {
+  content: "FiU";
+  padding: 4px 1px 4px 1px; }
+
+.Försvarsutskottet::before {
+  content: "FöU";
+  padding: 4px 1px 4px 1px; }
+
+.Justitiedepartementet::before {
+  content: "JuU";
+  padding: 4px 1px 4px 1px; }
+
+.Konstitutionsutskottet::before {
+  content: "KU";
+  padding: 4px 3px 4px 3px; }
+
+.Kulturutskottet::before {
+  content: "KrU";
+  padding: 4px 1px 4px 1px; }
+
+.Miljö- och Jordbruksutskottet::before {
+  content: "MJU";
+  padding: 4px 0px 4px 0px; }
+
+.Näringsutskottet::before {
+  content: "NU";
+  padding: 4px 3px 4px 3px; }
+
+.Skatteutskottet::before {
+  content: "SkU";
+  padding: 4px 1px 4px 1px; }
+
+.Socialförsäkringsutskottet::before {
+  content: "SfU";
+  padding: 4px 1px 4px 1px; }
+
+.Socialdepartementet::before {
+  content: "SoU";
+  padding: 4px 1px 4px 1px; }
+
+.Trafikutskottet::before {
+  content: "TU";
+  padding: 4px 3px 4px 3px; }
+
+.Utbildningsutskottet::before {
+  content: "UbU";
+  padding: 4px 1px 4px 1px; }
+
+.Utrikesdepartementet::before {
+  content: "UU";
+  padding: 4px 3px 4px 3px; }
+
+.Trafikutskottet::before {
+  content: "TU";
+  padding: 4px 3px 4px 3px; }
+
+.activatedresultbuttons {
+  display: none;
+  margin-top: 5px;
+  margin-bottom: 0;
+  margin-left: 5%; }
+  .activatedresultbuttons p {
+    margin-bottom: 0; }
+  .activatedresultbuttons img {
+    display: block;
+    margin: auto; }
+
+.activatedbuttontable {
+  display: inline-block;
+  width: 20%; }
+  .activatedbuttontable img {
+    max-width: 48px; }
+
+.debatetext {
+  display: none; }
+
+.decision {
+  display: none;
+  height: 38px;
+  padding-top: 5px;
+  overflow: hidden; }
+
+.extendeddecision {
+  height: auto; }
+
+.longdecision::before {
+  content: ""; }
+
+.longdecision::before {
+  position: absolute;
+  left: 93%;
+  margin-top: 38px;
+  content: " ";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(255, 255, 255, 0.8);
+  animation: animationFrames ease-in-out 1s;
+  animation-iteration-count: 5;
+  transform-origin: 50% 50%;
+  animation-fill-mode: forwards;
+  /*when the spec is finished*/
+  -webkit-animation: animationFrames ease-in-out 1s;
+  -webkit-animation-iteration-count: 5;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode: forwards;
+  /*Chrome 16+, Safari 4+*/
+  -moz-animation: animationFrames ease-in-out 1s;
+  -moz-animation-iteration-count: 5;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode: forwards;
+  /*FF 5+*/
+  -o-animation: animationFrames ease-in-out 1s;
+  -o-animation-iteration-count: 5;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode: forwards;
+  /*Not implemented yet*/
+  -ms-animation: animationFrames ease-in-out 1s;
+  -ms-animation-iteration-count: 5;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode: forwards;
+  /*IE 10+*/ }
+
+#menu {
+  position: fixed;
+  float: top;
+  width: 50%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 999;
+  padding-left: 15px;
+  left: -55%; }
+
+.menuitem {
+  text-align: left;
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+  padding-bottom: 15px;
+  margin-right: 15px; }
+
+#menuclosebutton {
+  position: absolute;
+  top: 0;
+  margin-top: 2%;
+  right: 2%;
+  max-width: 24px; }
+
+.docrefs {
+  height: 38px;
+  width: 90%;
+  overflow: hidden;
+  position: relative; }
+
+.extendeddocrefs {
+  height: 30%;
+  overflow-y: scroll; }
+
+.longdocrefs::before {
+  content: ""; }
+
+.longdocrefs::before {
+  position: absolute;
+  left: 83%;
+  margin-top: 40px;
+  content: " ";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid rgba(255, 255, 255, 0.8);
+  animation: animationFrames ease-in-out 1s;
+  animation-iteration-count: 5;
+  transform-origin: 50% 50%;
+  animation-fill-mode: forwards;
+  /*when the spec is finished*/
+  -webkit-animation: animationFrames ease-in-out 1s;
+  -webkit-animation-iteration-count: 5;
+  -webkit-transform-origin: 50% 50%;
+  -webkit-animation-fill-mode: forwards;
+  /*Chrome 16+, Safari 4+*/
+  -moz-animation: animationFrames ease-in-out 1s;
+  -moz-animation-iteration-count: 5;
+  -moz-transform-origin: 50% 50%;
+  -moz-animation-fill-mode: forwards;
+  /*FF 5+*/
+  -o-animation: animationFrames ease-in-out 1s;
+  -o-animation-iteration-count: 5;
+  -o-transform-origin: 50% 50%;
+  -o-animation-fill-mode: forwards;
+  /*Not implemented yet*/
+  -ms-animation: animationFrames ease-in-out 1s;
+  -ms-animation-iteration-count: 5;
+  -ms-transform-origin: 50% 50%;
+  -ms-animation-fill-mode: forwards;
+  /*IE 10+*/ }
+
+.videodome {
+  border: 3px solid rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 5px;
+  margin-left: 2%; }
+
+.expander {
+  display: none;
+  margin-left: 10%; }
+  .expander img {
+    display: inline-block;
+    max-width: 22px;
+    opacity: 0.8;
+    padding: 2px; }
+  .expander p {
+    display: inline-block;
+    font-size: 12px;
+    line-height: 22px;
+    vertical-align: middle;
+    padding: 0; }
+
+/*# sourceMappingURL=index.css.map */

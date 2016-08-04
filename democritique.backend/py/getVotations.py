@@ -20,7 +20,9 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 	# REMEMBER TO REMOVE
 
 	yesterday = '2016-01-01'
-	today = '2016-03-31'
+	today = '2016-08-01'
+
+
 
 	# -----
 
@@ -50,7 +52,11 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 
    	print str(nbrOfHits)
 
-   	nbrOfHits = int(str(nbrOfHits))
+   	try:
+		nbrOfHits = int(str(nbrOfHits))
+	except ValueError:
+		print "Only one page"
+		nbrOfHits = 1;
 
    	nbrOfPages = nbrOfHits/20
 
@@ -67,11 +73,11 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
    		# REMEMBER TO REMOVE
 
 		yesterday = '2016-01-01'
-		today = '2016-03-31'
+		today = '2016-08-01'
 
 		# -----
 
-   		
+
    		url = 'http://data.riksdagen.se/dokumentlista/?sok='+searchword
 
 
@@ -93,7 +99,6 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
     # print all_votations
 	return searchHits
 
-	
+
 
 # 	response = getVotations.get_riksdata(True, '', "&doktyp=prop", "&sort=datum", "&sortorder=asc")
-

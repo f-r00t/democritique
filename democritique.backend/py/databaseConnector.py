@@ -1,9 +1,125 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
 import mysql.connector
 from datetime import date, datetime, timedelta
 
+def delete_old_items():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("DELETE FROM reports WHERE beslut = 'planerat' AND beslutsdatum <= CURDATE()")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+
+def check_reports():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM reports WHERE beslut = 'planerat' AND beslutsdatum <= CURDATE()")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+
+def check_voteless_reports():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id_votes FROM reports WHERE beslut = 'inträffat' AND NOT EXISTS (SELECT * FROM polvotes WHERE polvotes.dok_id = reports.dok_id)")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+def check_refless_reports():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM reports WHERE NOT EXISTS (SELECT * FROM docrefs WHERE docrefs.parent = reports.dok_id)")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+
+
+def check_motions():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM docrefs WHERE doktype = 'mot' AND NOT EXISTS (SELECT * FROM motions WHERE docrefs.dok_id = motions.dok_id)")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+def check_propositions():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM docrefs WHERE doktype = 'prop' AND NOT EXISTS (SELECT * FROM propositions WHERE docrefs.dok_id = propositions.dok_id)")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+
+
+
 def insert_prop(dok_id, rm, organ, datum, titel, pdf):
 
-	cnx = mysql.connector.connect(user='riksdata', password='secret',
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
 	                              host='127.0.0.1',
 	                              database='riksdata')
 
@@ -23,7 +139,7 @@ def insert_prop(dok_id, rm, organ, datum, titel, pdf):
 
 def insert_mot(dok_id, rm, party, datum, titel, pdf):
 
-	cnx = mysql.connector.connect(user='riksdata', password='secret',
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
 	                              host='127.0.0.1',
 	                              database='riksdata')
 
@@ -41,19 +157,19 @@ def insert_mot(dok_id, rm, party, datum, titel, pdf):
 
 	cnx.close()
 
-def insert_bet(dok_id, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription):
+def insert_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription):
 
-	cnx = mysql.connector.connect(user='riksdata', password='secret',
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
 	                              host='127.0.0.1',
 	                              database='riksdata')
 
 	cursor = cnx.cursor()
 
 	add_proposition = ("INSERT INTO reports "
-	               "(dok_id, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription) "
-	               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)")
+	               "(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription) "
+	               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
-	data_proposition = (dok_id, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription)
+	data_proposition = (dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription)
 
 	cursor.execute(add_proposition, data_proposition)
 
@@ -63,7 +179,7 @@ def insert_bet(dok_id, rm, description, datum, titel, pdf, beslut, beslutsdatum,
 
 def insert_refs(dok_id, title, doktype, reftype, parent):
 
-	cnx = mysql.connector.connect(user='riksdata', password='secret',
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
 	                              host='127.0.0.1',
 	                              database='riksdata')
 
@@ -74,6 +190,27 @@ def insert_refs(dok_id, title, doktype, reftype, parent):
 	               "VALUES (%s, %s, %s, %s, %s)")
 
 	data = (dok_id, title, doktype, reftype, parent)
+
+	cursor.execute(operation, data)
+
+	cnx.commit()
+
+	cnx.close()
+
+
+def insert_votes(dok_id, person_id, name, party, vote):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	operation = ("INSERT INTO polvotes "
+	               "(dok_id, person_id, name, party, vote) "
+	               "VALUES (%s, %s, %s, %s, %s)")
+
+	data = (dok_id, person_id, name, party, vote)
 
 	cursor.execute(operation, data)
 

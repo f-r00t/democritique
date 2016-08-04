@@ -2,6 +2,14 @@ from BeautifulSoup import BeautifulSoup
 import mechanize
 import getVotations
 import databaseConnector
+import urllib2
+
+def percentage(link,links):
+
+	i = links.index(link)
+	length = len(links)
+	print (str(i)+"/"+str(length))
+	print str(int((i+1)/float(length)*100))+"%"
 
 
 def getPropsURLs():
@@ -34,7 +42,7 @@ def getPropsData(links):
 	for link in links:
 
 		link = 'http:'+str(link)
-		
+
 		response = b.open(link).read()
 
 		soup = BeautifulSoup(str(response))
@@ -114,15 +122,16 @@ def getBetData(links):
 			print 'Cannot open'+link
 			continue
 		except urllib2.URLError as e:
-			print 'Cannot open'+link
+			print 'Cannot open '+link
 			continue
 
 		soup = BeautifulSoup(str(response))
 
 		items = []
 
-		try: 
+		try:
 			dok_id = str(soup.dok_id.string)
+			dok_id_votes = str(soup.dok_id.string)[4:]
 		except AttributeError:
 			errors.append(link)
 			continue
@@ -167,7 +176,7 @@ def getBetData(links):
 		else:
 			beslut = 'none'
 			beslutsdatum = 'none'
-		
+
 
 		try:
 			pdf = str(soup.findAll('fil_url')[-1].string)
@@ -183,6 +192,7 @@ def getBetData(links):
 
 
 		items.append(unicode(dok_id, 'utf-8'))
+		items.append(unicode(dok_id_votes, 'utf-8'))
 		items.append(unicode(rm, 'utf-8'))
 		items.append(unicode(description, 'utf-8'))
 		items.append(unicode(datum, 'utf-8'))
@@ -200,6 +210,57 @@ def getBetData(links):
 		data.append(items)
 
 	return data
+
+def getVotationData(links):
+
+	errors = []
+	b = mechanize.Browser()
+
+	for link in links:
+
+		try:
+			link = 'http:'+link.encode('utf-8')
+		except UnicodeEncodeError:
+			print link
+			continue
+
+		try:
+			response = b.open(link).read()
+			print "Opening link: " + link
+		except mechanize.HTTPError as e:
+			print 'Cannot open'+link
+			continue
+		except urllib2.URLError as e:
+			print 'Cannot open'+link
+			continue
+
+		soup = BeautifulSoup(str(response))
+
+		for vote in soup.findAll('votering'):
+
+			try:
+				dok_id = str(vote.beteckning.string)
+			except AttributeError:
+				errors.append(link)
+				continue
+
+			person_id = str(vote.intressent_id.string)
+			name = str(vote.namn.string)
+			party = str(vote.parti.string)
+			vote = str(vote.rost.string)
+
+
+			print(unicode(dok_id, 'utf-8'))
+			print(unicode(person_id, 'utf-8'))
+			print(unicode(name, 'utf-8'))
+			print(unicode(party, 'utf-8'))
+			print(unicode(vote, 'utf-8'))
+
+			print "-------"
+
+			databaseConnector.insert_votes(unicode(dok_id, 'utf-8'),unicode(person_id, 'utf-8'),unicode(name, 'utf-8'),unicode(party, 'utf-8'),unicode(vote, 'utf-8'))
+
+
 
 def getRefs(links):
 
@@ -237,7 +298,7 @@ def getRefs(links):
 
 			refs = []
 
-			try:	
+			try:
 				reftype = docref.referenstyp.string
 				title = docref.ref_dok_titel.string
 				doktype = docref.ref_dok_typ.string
@@ -297,8 +358,8 @@ def getMotData(links):
 
 		items = []
 
-		try:	
-		
+		try:
+
 			dok_id = str(soup.dok_id.string)
 
 			rm = str(soup.rm.string)
@@ -308,7 +369,7 @@ def getMotData(links):
 			datum = str(soup.datum.string[0:-9])
 
 			titel = str(soup.titel.string)
-			
+
 		except AttributeError:
 				print "ERROR! Couldn't read tags reference tag of document"+soup.dok_id.string
 				continue
@@ -352,7 +413,7 @@ def getMotIntressents(links):
 	for link in links:
 
 		link = 'http:'+str(link)
-		
+
 		response = b.open(link).read()
 
 		soup = BeautifulSoup(str(response))
@@ -399,12 +460,15 @@ def getDocRefers(links):
 
 	b = mechanize.Browser()
 
+	print "Starting to fetch document references..."
+	print "----------------------------------------"
+
 	for link in links:
 
 		try:
 			link = 'http:'+link.encode('utf-8')
 		except UnicodeEncodeError:
-			print link
+			print "Error!!! "+link+" could not be opened!"
 			continue
 
 		try:
@@ -419,18 +483,24 @@ def getDocRefers(links):
 
 		soup = BeautifulSoup(str(response))
 
-		
+
 
 		soupy = BeautifulSoup(str(soup.dokreferens))
 
 		for docref in soupy.findAll('referens'):
 
-			try:	
+			try:
 				reftype = docref.referenstyp.string
 				title = docref.ref_dok_titel.string
 				doktype = docref.ref_dok_typ.string
 				dok_id = docref.ref_dok_id.string
 				parent = soup.dok_id.string
+
+				print(reftype)
+				print(title)
+				print(doktype)
+				print(dok_id)
+				print(parent)
 
 				databaseConnector.insert_refs(str(dok_id),str(title),str(doktype),str(reftype),str(parent))
 
@@ -438,24 +508,165 @@ def getDocRefers(links):
 				print "ERROR! Couldn't read tags reference tag of document"+soup.dok_id.string
 				continue
 
-			
+
 
 			print "-------"
 
-links = getURLs('bet')
-data = getBetData(links)
+def updateReports():
 
-for item in data:
-	databaseConnector.insert_bet(*item)
+	dokidslist = databaseConnector.check_reports()
 
-data = getDocRefers(links)
+	print len(dokidslist)
+
+	links = []
+
+	for dokid in dokidslist:
+
+		urls = getVotations.get_riksdata(False, dokid[0])
+
+		soup = BeautifulSoup(str(urls))
+
+		dok_url = soup.findAll('h3')
+		soup = BeautifulSoup(str(dok_url))
+
+		for link in soup.findAll('a'):
+
+		    links.append(link.get('href'))
+		    print 'Reading: ' + link.get('href')
+
+	data = getBetData(links)
+
+	for item in data:
+		databaseConnector.insert_bet(*item)
+
+def updateMotions():
+
+	dokidslist = databaseConnector.check_motions()
+
+	print len(dokidslist)
+
+	links = []
+
+	for dokid in dokidslist:
+
+		percentage(dokid,dokidslist)
+
+		urls = getVotations.get_riksdata(False, dokid[0])
+
+		soup = BeautifulSoup(str(urls))
+
+		dok_url = soup.findAll('h3')
+		soup = BeautifulSoup(str(dok_url))
+
+		for link in soup.findAll('a'):
+
+		    links.append(link.get('href'))
+		    print 'Reading: ' + link.get('href')
+
+	data = getMotData(links)
+
+	for item in data:
+		databaseConnector.insert_mot(*item)
+
+def updatePropositions():
+
+	dokidslist = databaseConnector.check_propositions()
+
+	print len(dokidslist)
+
+	links = []
+
+	for dokid in dokidslist:
+
+		urls = getVotations.get_riksdata(False, dokid[0])
+
+		soup = BeautifulSoup(str(urls))
+
+		dok_url = soup.findAll('h3')
+		soup = BeautifulSoup(str(dok_url))
+
+		for link in soup.findAll('a'):
+
+		    links.append(link.get('href'))
+		    print 'Reading: ' + link.get('href')
+
+	data = getPropsData(links)
+
+	for item in data:
+		databaseConnector.insert_prop(*item)
+
+def fixMissingDocRefs():
+
+	dokidslist = databaseConnector.check_refless_reports()
+
+	print len(dokidslist)
+
+	links = []
+
+	for dokid in dokidslist:
+
+		urls = getVotations.get_riksdata(False, dokid[0])
+
+		soup = BeautifulSoup(str(urls))
+
+		dok_url = soup.findAll('h3')
+		soup = BeautifulSoup(str(dok_url))
+
+		for link in soup.findAll('a'):
+
+		    links.append(link.get('href'))
+		    print 'Reading: ' + link.get('href')
+
+	data = getDocRefers(links)
+
+def fixMissingVotes():
+
+	dokidslist = databaseConnector.check_voteless_reports()
+
+	print len(dokidslist)
+
+	links = []
+
+	for dokid in dokidslist:
+
+		print dokid[0]
+
+		links.append("//data.riksdagen.se/voteringlista/?bet=" + dokid[0] + "&sz=349&utformat=xml")
+
+	data = getVotationData(links)
+
+
+
+
+# updatePropositions()
+# updateMotions()
+
+fixMissingVotes()
+#
+# links = []
+# links.append("//data.riksdagen.se/voteringlista/?bet=KU20&punkt=&valkrets=&rost=&iid=&sz=500&utformat=xml&gruppering=")
+#
+# getVotationData(links)
+
+
+# updateReports()
+#
+# links = getURLs('bet')
+# data = getBetData(links)
+#
+# for item in data:
+# 	databaseConnector.insert_bet(*item)
+
+# data = getDocRefers(links)
+
+############################--><---#################
 
 # links = getURLs('bet')
 
 
 # for item in data:
 
-	
+
 # 	print item
 # 	print 'Inserted into database'
 
@@ -478,4 +689,3 @@ data = getDocRefers(links)
 # for item in data:
 
 # 	databaseConnector.insert_prop(*item)
-

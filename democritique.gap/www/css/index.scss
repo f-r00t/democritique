@@ -100,13 +100,13 @@ h1 {
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 @-webkit-keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
     to { opacity: 1.0; }
 }
- 
+
 .blink {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
@@ -185,7 +185,7 @@ h1 {
     /*border-radius: 20px 20px 0 0;*/
     max-width: 100%;
 
-    
+
     p {
 
         margin: 0px 10px;
@@ -396,7 +396,7 @@ h1 {
    color: rgba(255,255,255,0.9);
 }
 
-:-ms-input-placeholder {  
+:-ms-input-placeholder {
    color: rgba(255,255,255,0.9);
 }
 
@@ -407,7 +407,7 @@ h1 {
     border-left: 5px solid #76FF03;
     padding: 10px;
     /*border-bottom: 5px solid #303030;*/
-    
+
 
     p {
 
@@ -504,8 +504,8 @@ h1 {
     left: 93%;
     margin-top: 38px;
   content: " ";
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgba(255,255,255,0.8);
@@ -517,7 +517,7 @@ h1 {
   -webkit-animation: animationFrames ease-in-out 1s;
   -webkit-animation-iteration-count: 5;
   -webkit-transform-origin: 50% 50%;
-  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
   -moz-animation: animationFrames ease-in-out 1s;
   -moz-animation-iteration-count: 5;
   -moz-transform-origin: 50% 50%;
@@ -659,6 +659,7 @@ h1 {
   position: absolute;
   content: "X";
   left:0%;
+  margin-left: -1%;
   margin-top: -1%;
   border-radius: 50%;
   background-color: #303030;
@@ -667,6 +668,11 @@ h1 {
 
 .docref {
   border: none;
+
+  p{
+
+  margin-left: 7%;
+  }
 }
 
 .KD::before {
@@ -752,13 +758,29 @@ h1 {
   padding: 4px 0px 4px 0px;
 }
 
+.energidepartementet::before {
+  content: "MeD";
+  padding: 4px 0px 4px 0px;
+}
+
 .Näringsutskottet::before {
   content: "NU";
   padding: 4px 3px 4px 3px;
 }
 
+.Utbildningsdepartementet::before {
+  content: "UD";
+  padding: 4px 3px 4px 3px;
+}
+
+
 .Skatteutskottet::before {
   content: "SkU";
+  padding: 4px 1px 4px 1px;
+}
+
+.Stasrådsberedningen::before {
+  content: "SrB";
   padding: 4px 1px 4px 1px;
 }
 
@@ -837,8 +859,8 @@ h1 {
     left: 93%;
     margin-top: 38px;
   content: " ";
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgba(255,255,255,0.8);
@@ -850,7 +872,7 @@ h1 {
   -webkit-animation: animationFrames ease-in-out 1s;
   -webkit-animation-iteration-count: 5;
   -webkit-transform-origin: 50% 50%;
-  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
   -moz-animation: animationFrames ease-in-out 1s;
   -moz-animation-iteration-count: 5;
   -moz-transform-origin: 50% 50%;
@@ -911,8 +933,8 @@ h1 {
     left: 83%;
     margin-top: 40px;
   content: " ";
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 5px solid transparent;
   border-right: 5px solid transparent;
   border-top: 5px solid rgba(255,255,255,0.8);
@@ -923,7 +945,7 @@ h1 {
   -webkit-animation: animationFrames ease-in-out 1s;
   -webkit-animation-iteration-count: 5;
   -webkit-transform-origin: 50% 50%;
-  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/ 
+  -webkit-animation-fill-mode:forwards; /*Chrome 16+, Safari 4+*/
   -moz-animation: animationFrames ease-in-out 1s;
   -moz-animation-iteration-count: 5;
   -moz-transform-origin: 50% 50%;
@@ -963,6 +985,6 @@ h1 {
     font-size: 12px;
     line-height: 22px;
     vertical-align: middle;
-    padding: 0; 
+    padding: 0;
   }
 }

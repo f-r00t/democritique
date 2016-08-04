@@ -1,8 +1,8 @@
 document.addEventListener("deviceready", function(){
 
-    // Show spinner 
+    // Show spinner
     $('.load-bar').show();
-    
+
 	// User login
 
                 var userID = window.localStorage.getItem("userID"); // Get local cookie with stored User ID)
@@ -22,48 +22,42 @@ document.addEventListener("deviceready", function(){
                 // else{
 
                 //     getUserData(userID); // If user already exists, consider it logged in.
-                
+
                 // };
 
-    // Fetch first round of data
 
-    var pageCount = 0; //increment count for ajax download of entry posts
 
                 //first download of posts when page is loaded
 
-                $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchReports.php',{'page': pageCount}, function(data) { //ajax command
-               
-                    $("#results").append(data); //append data received from server
-                    clickHandlers();
-                    colorizeResults();
+                // $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchReports.php',{'page': pageCount}, function(data) { //ajax command
+                //
+                //     $("#results").append(data); //append data received from server
+                //     clickHandlers();
+                //     colorizeResults();
+                //     $('.load-bar').hide();
+                //     pageCount++; //increment on page
+                //
+                // });
 
-                });
-   
-                pageCount++; //increment on page
-                $('.load-bar').hide();
+    var pageCount = 0; //increment count for ajax download of entry posts
+    var currentDocType = 'reports'; //currently chosen type of documents to be fetched
+    var currentSorting = 'date'; //currently chosen type of sorting for said documents
 
-
-
-    if( $("#results").height() <  $(window).height() ) {
-
-        $('.load-bar').show();
-
-        $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchReports.php',{'page': pageCount}, function(data) {
-               
-            $("#results").append(data); //append data received from server
-            clickHandlers();
-            colorizeResults();
-   
-        pageCount++; //increment on page
-        $('.load-bar').hide();
+    getPosts(currentDocType, currentSorting, pageCount);
+    pageCount++;
 
 
-        })
+    $(window).scroll(function() {
+       if($(window).scrollTop() + $(window).height() == $(document).height()) {
 
-	}
+         $('.load-bar').show();
+
+           getPosts(currentDocType, currentSorting, pageCount);
+           pageCount++;
+       }
+    });
+
 
 
 
 });
-
-	

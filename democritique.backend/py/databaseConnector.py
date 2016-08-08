@@ -48,7 +48,7 @@ def check_voteless_reports():
 
 	cursor = cnx.cursor()
 
-	query = ("SELECT dok_id_votes FROM reports WHERE beslut = 'inträffat' AND NOT EXISTS (SELECT * FROM polvotes WHERE polvotes.dok_id = reports.dok_id)")
+	query = ("SELECT dok_id_votes FROM reports WHERE beslut = 'inträffat' AND NOT EXISTS (SELECT * FROM polvotes WHERE polvotes.dok_id = reports.dok_id_votes)")
 
 	cursor.execute(query)
 
@@ -57,6 +57,26 @@ def check_voteless_reports():
 	cnx.close()
 
 	return data
+
+def get_partyVotes():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM reports WHERE NOT EXISTS (SELECT * FROM polvotes WHERE polvotes.dok_id = reports.dok_id_votes AND polvotes.name = 'theparty')")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+
 
 def check_refless_reports():
 

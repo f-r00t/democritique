@@ -84,6 +84,14 @@ function colorizeResults() {
     });
 }
 
+function closeMenu() {
+
+  $('#menu').animate({
+      left: '-55%'
+    }, 800);
+
+}
+
 function closeButton() {
 
     // Remove previously added extra UI elements
@@ -162,7 +170,7 @@ function commentButtons() {
 
     $(".comdown").unbind('click');
         $(".comdown").click(function() { // Activate functionality on upvote button
-            $('.load-bar').show(); 
+            $('.load-bar').show();
             $(this).unbind('click');
             $(this).next().addClass('votingOperationClass'); // Add extra class to the <p> holding amount of votes
             comment_id = $(this).parent().parent().parent().attr('comment_id');
@@ -189,10 +197,10 @@ function commentButtons() {
 
                 }
 
-                $('.votingOperationClass').removeClass('votingOperationClass'); 
+                $('.votingOperationClass').removeClass('votingOperationClass');
 
                 $('.activatedcomment').removeClass('activatedcomment');
-                
+
                 $('.load-bar').hide();
 
             });
@@ -202,7 +210,7 @@ function commentButtons() {
 
     $(".comup").unbind('click');
         $(".comup").click(function() { // Activate functionality on upvote button
-            $('.load-bar').show(); 
+            $('.load-bar').show();
             $(this).unbind('click');
             $(this).next().addClass('votingOperationClass'); // Add extra class to the <p> holding amount of votes
             comment_id = $(this).parent().parent().parent().attr('comment_id');
@@ -230,10 +238,10 @@ function commentButtons() {
 
                 }
 
-                $('.votingOperationClass').removeClass('votingOperationClass'); 
+                $('.votingOperationClass').removeClass('votingOperationClass');
 
                 $('.activatedcomment').removeClass('activatedcomment');
-                
+
                 $('.load-bar').hide();
 
             });
@@ -243,7 +251,53 @@ function commentButtons() {
 
 }
 
-function clickHandlers() { // this binds the click function on results,
+function clickHandlers() { // this binds the click function on results
+
+    $('#profilebutton').click(function(){
+
+      closeMenu()
+
+      $('.load-bar').show();
+
+      $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchVotes.php',{'user_id': userID}, function(data) { //ajax command
+
+          $('#profile').empty();
+          $('#profile').find('.profileresults').remove();
+          $("#profile").append(data); //append data received from server
+          $('.load-bar').hide();
+
+          $('.votemeteramount').each(function(index, value) {
+
+            var tempwith = $(this).attr('amount');
+            $(this).animate({
+                'width': tempwith+'%'
+              }, 800);
+          });
+
+      });
+
+      $('#profile').animate({
+          'margin-left': '0'
+        }, 800);
+
+      $('#closebutton').fadeIn();
+
+      $('#closebutton').click(function(){
+
+        $(this).fadeOut();
+
+        $('#profile').animate({
+            'margin-left': '-110%'
+          }, 800);
+
+
+
+        closeButton()
+
+      });
+
+
+    });
 
 
                     var userID = window.localStorage.getItem("userID"); // Get local cookie with stored User ID)
@@ -253,7 +307,7 @@ function clickHandlers() { // this binds the click function on results,
                         $('#menu').animate({
                             left: '0'
                           }, 800);
-                    
+
                     });
 
                     $('#menuclosebutton').click(function(){
@@ -261,7 +315,7 @@ function clickHandlers() { // this binds the click function on results,
                         $('#menu').animate({
                             left: '-55%'
                           }, 800);
-                    
+
                     });
 
 
@@ -279,7 +333,7 @@ function clickHandlers() { // this binds the click function on results,
                         // $(this).removeAttr('style');
 
                         $('#bodyid').css('overflow-y','hidden');
-                        
+
 
                         dok_id = $(this).attr("dok_id"); // The currently read results ID
                         $(this).addClass(dok_id);
@@ -287,7 +341,7 @@ function clickHandlers() { // this binds the click function on results,
 
                         // $('.activatedresult').find(".upvote").unbind('click');
                         $('.activatedresult').find(".upvote").click(function() { // Activate functionality on upvote button
-                            $('.load-bar').show(); 
+                            $('.load-bar').show();
                             $(this).unbind('click');
                             $(this).next().addClass('votingOperationClass'); // Add extra class to the <p> holding amount of votes
 
@@ -315,8 +369,8 @@ function clickHandlers() { // this binds the click function on results,
 
                                 }
 
-                                $('.votingOperationClass').removeClass('votingOperationClass'); 
-                                
+                                $('.votingOperationClass').removeClass('votingOperationClass');
+
                                 $('.load-bar').hide();
 
                             });
@@ -326,7 +380,7 @@ function clickHandlers() { // this binds the click function on results,
 
                         $('.activatedresult').find(".downvote").unbind('click');
                         $('.activatedresult').find(".downvote").click(function() { // Activate functionality on upvote button
-                            $('.load-bar').show(); 
+                            $('.load-bar').show();
                             $(this).unbind('click');
                             $(this).next().addClass('votingOperationClass'); // Add extra class to the <p> holding amount of votes
 
@@ -354,8 +408,8 @@ function clickHandlers() { // this binds the click function on results,
 
                                 }
 
-                                $('.votingOperationClass').removeClass('votingOperationClass'); 
-                                
+                                $('.votingOperationClass').removeClass('votingOperationClass');
+
                                 $('.load-bar').hide();
 
                             });
@@ -413,9 +467,9 @@ function clickHandlers() { // this binds the click function on results,
                             $('.activatedresult').find('.debatetext').fadeIn();
                             width = $(window).width();
                             if ( !$( ".videodome" ).length ) {
- 
+
                                 $('.activatedresult').find('.debatetext').after('<iframe class="videodome" src="https://www.riksdagen.se/views/pages/embedpage.aspx?did=' + dok_id + '" width="' + (width*0.9) + '" height="' + (width*0.5) + '" allowfullscreen=""></iframe>');
-                             
+
                             }
                             e.stopPropagation();
                         });
@@ -430,7 +484,7 @@ function clickHandlers() { // this binds the click function on results,
                             $('.activatedresult').find('.videodome').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
                             $('.activatedresult').find('.decision').fadeIn();
-                            
+
 
                         });
 
@@ -443,6 +497,8 @@ function clickHandlers() { // this binds the click function on results,
                         $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchDocRefs.php',{'dok_id': JSON.stringify(dok_id)}, function(data) { // Get related documents
 
                             $('.activatedresult').find('.resultbuttons').before(data);
+
+                            $('.activatedresult').find('docref').remove();
 
                             $('.activatedresult').find(".docref").click(function() {
 
@@ -501,7 +557,7 @@ function clickHandlers() { // this binds the click function on results,
 
                             });
 
-                        
+
                         // Locks scroll position in place
 
                         // var stopScroll = function(e) {
@@ -510,7 +566,7 @@ function clickHandlers() { // this binds the click function on results,
 
                         // document.getElementById('results').addEventListener('touchmove', stopScroll, false);
                         // document.getElementById('bodyid').addEventListener('touchmove', stopScroll, false);
-                        
+
 
                         // $(this).find('.comments').attr('id','coolcomments');
                         // document.getElementById('coolcomments').addEventListener('touchmove', function(e){e.stopPropagation()}, false);
@@ -529,7 +585,7 @@ function clickHandlers() { // this binds the click function on results,
 
                         // Invites some extra UI elements to the party
 
-                        $('.activatedresult').find(".comdiv").fadeIn();                        
+                        $('.activatedresult').find(".comdiv").fadeIn();
 
                         $('.activatedresult').find(".comdiv").animate({
 
@@ -537,7 +593,7 @@ function clickHandlers() { // this binds the click function on results,
 
                         }, 800);
 
-                        
+
 
                         // $('.activatedresult').find("#doclink").fadeIn();
                         // $('.activatedresult').find("#commentlink").fadeIn();
@@ -551,7 +607,7 @@ function clickHandlers() { // this binds the click function on results,
 
                         $('.activatedresult').find(".resultbody").css("height","90%");
 
-                        
+
                         offset = $(this).offset().top;
                         offset = offset - headerHeight;
                         originalOffset = $('body').offset().top;
@@ -587,7 +643,7 @@ function clickHandlers() { // this binds the click function on results,
 
 
                         $('.activatedresult').find("#commentlink").unbind('click');
-                        $('.activatedresult').find("#commentlink").click(function() { 
+                        $('.activatedresult').find("#commentlink").click(function() {
 
 
                             // Hijack the close button for an escape route from "comment writing mode"
@@ -603,7 +659,7 @@ function clickHandlers() { // this binds the click function on results,
 
                                 closeButton()
 
-                                
+
 
                             });
 
@@ -630,7 +686,7 @@ function clickHandlers() { // this binds the click function on results,
 
                             // Submit function of comment form
 
-                            $('.activatedresult').find(".commentform").submit(function(e) { 
+                            $('.activatedresult').find(".commentform").submit(function(e) {
 
                                 $('.load-bar').show(); // Loading...
 
@@ -670,7 +726,7 @@ function clickHandlers() { // this binds the click function on results,
 
                                     $('.activatedresult').find('.resultbodytext').fadeIn();
                                     $('.activatedresult').find('.timeline').fadeIn();
-                                    
+
 
                                 }else{
 
@@ -683,12 +739,12 @@ function clickHandlers() { // this binds the click function on results,
                             });
 
                         });
-                        
+
                         // Get comments
 
                         $.post('http://lingon.funkar.nu/sites/riksdagen/php/comments.php',{'dok_id': dok_id}, function(data) {
 
-                           
+
                             $("."+commentclass).append(data); //append data received from server
 
                             $("."+commentclass).fadeIn();

@@ -4,8 +4,7 @@ header('Content-Type: text/html; charset=utf-8');
 
 include("db.php");
 
-// $user = $_POST["user_id"];
-$user = 'd9459099af7b7c9830ed33c73412c81c';
+$user = $_POST["user_id"];
 
 $comparableVotes = array();
 $totalVotes = 0;
@@ -38,9 +37,20 @@ while($row = mysqli_fetch_array($result))
 
   }
 
-  $parties = array_keys($partyvotes);
+  $newParties = array_keys($partyvotes);
 
-  foreach ($parties as &$party) {
+
+
+
+
+
+  foreach ($newParties as &$party) {
+
+    $party = strtoupper($party);
+
+    if(!in_array($party, $parties, true)){
+         array_push($parties, $party);
+     }
 
     if ($uservote == (-1)){
 
@@ -69,24 +79,34 @@ while($row = mysqli_fetch_array($result))
 
 }
 
-foreach ($parties as &$party) {
+arsort($comparableVotes);
 
-  echo $comparableVotes[$party];
-  echo '/';
-  echo $totalVotes;
-  echo $party;
-  echo "#########################";
-  echo "<br>";
+echo "<div class='profileresults'>";
+
+foreach ($comparableVotes as $key => $vote) { // Iterate through comparableVotes array, where $key is a party
+
+  if (strtoupper($key) == '-'){
+    continue;
+  }
+
+
+  $votePercentage = intval(($vote / $totalVotes)*100);
+
+  echo "<div class='voteresults'>";
+
+  echo "<div class='votemeter " . strtoupper($key) . "'>";
+  echo "<p class='votemeteramount' amount='". $votePercentage . "'>";
+  echo $votePercentage;
+  echo "%";
+  echo "</p>";
+  echo "</div>";
 
 }
 
-
-// echo $comparableVotes['s'];
-
-// echo $comparableVotes['v'];
-// echo $comparableVotes['m'];
-// echo $comparableVotes['mp'];
-// echo $comparableVotes['fp'];
+echo "<p>Baserat på dina ";
+echo $totalVotes;
+echo " röster.";
+echo "</div>";
 
 
 mysqli_close($db);

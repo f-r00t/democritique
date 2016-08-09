@@ -1,5 +1,5 @@
 <widget xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0" id="org.riksdagen.riksdata" version="1.0.0">
-  <name>Democritique</name>
+  <name>Demokritik</name>
   <description>Nu får alla sitta i Riksdagen.</description>
   <author href="http://lingon.funkar.nu" email="gustavharryeriksson@gmail.com">Lingonbyrån.se</author>
   <content src="index.html"/>

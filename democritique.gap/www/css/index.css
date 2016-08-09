@@ -157,6 +157,48 @@ h1 {
   padding-top: 55px;
   overflow-x: hidden; }
 
+#profile {
+  position: fixed;
+  top: 0;
+  padding-top: 20%;
+  padding-left: 5%;
+  padding-right: 5%;
+  background-color: #303030;
+  width: 100%;
+  height: 95%;
+  margin-left: -110%;
+  z-index: 10;
+  color: rgba(255, 255, 255, 0.8); }
+
+.voteresults {
+  width: 100%;
+  margin-bottom: 2%; }
+
+.votemeter {
+  width: 80%;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  border-radius: 3px;
+  margin-bottom: 2%;
+  margin-left: 10%; }
+
+.votemeter::before {
+  position: absolute;
+  content: "X";
+  left: 0%;
+  margin-left: 3%;
+  margin-top: 1%;
+  transform: scale(1.2);
+  border-radius: 50%;
+  background-color: #303030;
+  padding: 4px 7px 4px 7px; }
+
+.votemeteramount {
+  color: #303030;
+  font-size: 24px;
+  background-color: rgba(255, 255, 255, 0.8);
+  margin: 2px;
+  text-align: center; }
+
 .result {
   padding: 0px;
   margin: 0px;
@@ -529,13 +571,11 @@ h1 {
   position: absolute;
   content: "X";
   left: 0%;
+  margin-left: 0;
   margin-top: -1%;
   border-radius: 50%;
   background-color: #303030;
   padding: 4px 7px 4px 7px; }
-
-.docref {
-  border: none; }
 
 .KD::before {
   content: "KD";
@@ -554,7 +594,13 @@ h1 {
 
 .L::before {
   content: "L";
-  background-color: #116AB5; }
+  background-color: #116AB5;
+  padding: 4px 8px 4px 8px; }
+
+.FP::before {
+  content: "FP";
+  background-color: #319AD5;
+  padding: 5px 4px 5px 4px; }
 
 .V::before {
   content: "V";
@@ -567,7 +613,7 @@ h1 {
 .MP::before {
   content: "MP";
   background-color: #2B912C;
-  padding: 4px 3px 4px 3px; }
+  padding: 5px 3px 4px 3px; }
 
 .C::before {
   content: "C";
@@ -605,12 +651,24 @@ h1 {
   content: "MJU";
   padding: 4px 0px 4px 0px; }
 
+.energidepartementet::before {
+  content: "MeD";
+  padding: 4px 0px 4px 0px; }
+
 .Näringsutskottet::before {
   content: "NU";
   padding: 4px 3px 4px 3px; }
 
+.Utbildningsdepartementet::before {
+  content: "UD";
+  padding: 4px 3px 4px 3px; }
+
 .Skatteutskottet::before {
   content: "SkU";
+  padding: 4px 1px 4px 1px; }
+
+.Stasrådsberedningen::before {
+  content: "SrB";
   padding: 4px 1px 4px 1px; }
 
 .Socialförsäkringsutskottet::before {
@@ -636,6 +694,11 @@ h1 {
 .Trafikutskottet::before {
   content: "TU";
   padding: 4px 3px 4px 3px; }
+
+.docref {
+  border: none; }
+  .docref p {
+    margin-left: 7%; }
 
 .activatedresultbuttons {
   display: none;

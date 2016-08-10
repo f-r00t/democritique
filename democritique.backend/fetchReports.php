@@ -34,18 +34,18 @@ while($row = mysqli_fetch_array($result))
   echo "<div class=\"resultbody\">";
   echo "<div class=\"resultbodytext\">";
   echo "<p>" . $row['datum'] . "</p>";
-  echo "</div>"; 
+  echo "</div>";
 
-  echo "<div class=\"timeline\">";
+  echo "<div class=\"timeline commenthide\">";
   echo "<div class=\"timelineitem first\"><span>1</span><p>Förslag</p></div>";
   echo "<div class=\"timelineitem second active\"><span>2</span><p>Beredning</p></div>";
   echo "<div class=\"timelineitem third\"><span>3</span><p>Debatt</p></div>";
   echo "<div class=\"timelineitem fourth\"><span>4</span><p>Beslut</p></div>";
   echo "</div>";
 
-  echo "<div class=\"reporttext\">" . utf8_encode($row['description']) . "</div>";
+  echo "<div class=\"reporttext commenthide\">" . utf8_encode($row['description']) . "</div>";
 
-  echo "<div class=\"debatetext\">";
+  echo "<div class=\"debatetext commenthide\">";
 
   if (utf8_encode($row['beslut']) == 'planerat' )
   {
@@ -53,13 +53,13 @@ while($row = mysqli_fetch_array($result))
   }
   else
   {
-   echo "<p>Beslutet togs den " . $row['beslutsdatum'] . "</p> "; 
+   echo "<p>Beslutet togs den " . $row['beslutsdatum'] . "</p> ";
   }
 
 
   echo "</div>";
 
-  echo "<div class=\"decision\">";
+  echo "<div class=\"decision commenthide\">";
 
   if (utf8_encode($row['beslut']) == 'planerat' )
   {
@@ -67,7 +67,7 @@ while($row = mysqli_fetch_array($result))
   }
   else
   {
-   echo "<p>" . utf8_encode($row['decisionDescription']) . "</p> "; 
+   echo "<p>" . utf8_encode($row['decisionDescription']) . "</p> ";
   }
 
 
@@ -92,7 +92,7 @@ while($row = mysqli_fetch_array($result))
 
   echo "</div>";
 
-  echo "<div class=\"activatedresultbuttons\">";
+  echo "<div class=\"activatedresultbuttons commenthide\">";
 
   echo "<a href=\"#\" onclick=\"window.open('http://docs.google.com/viewer?url=" . $row['pdf'] . ".pdf', '_blank', 'location=no');\">";
   echo "<div class=\"activatedbuttontable\" id=\"doclink\">";
@@ -118,11 +118,11 @@ while($row = mysqli_fetch_array($result))
 
   echo "</div>";
 
-  
+
 
   echo "<div class=\"comdiv\"></div>";
 
-  echo "<div class=\"comments\" id=\"" . $row['dok_id'] . "\"></div>";
+  echo "<div class=\"comments commenthide\" id=\"" . $row['dok_id'] . "\"></div>";
 
   echo "</div>";
   echo "</div>";
@@ -130,4 +130,4 @@ while($row = mysqli_fetch_array($result))
   }
 
 mysqli_close($db);
-?> 
+?>

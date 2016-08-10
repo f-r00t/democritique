@@ -633,6 +633,7 @@ function clickHandlers() { // this binds the click function on results
 
 
                                 $('.activatedresult').find('.resultbodytext').fadeIn();
+                                $('.activatedresult').find('.reporttext').fadeIn();
                                 $('.activatedresult').find('.activatedresultbuttons').fadeIn();
                                 $('.activatedresult').find('#postcomment').fadeOut();
                                 $('.activatedcomments').fadeIn();
@@ -645,17 +646,9 @@ function clickHandlers() { // this binds the click function on results
                             });
 
 
-                            // Removes the read comments to accomodate comment form
-
-                            $('.activatedresult').find('.comments').addClass('activatedcomments');
-                            $('.activatedcomments').fadeOut();
-
-
                             // Comment writing mode
 
-                            $('.activatedresult').find('.resultbodytext').fadeOut();
-                            $('.activatedresult').find('.resultbuttons').fadeOut();
-                            $('.activatedresult').find('.timeline').fadeOut();
+                            $('.activatedresult').find('.commenthide').fadeOut();
 
 
 

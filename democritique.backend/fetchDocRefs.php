@@ -8,7 +8,7 @@ $dok_id = $_POST["dok_id"];
 
 $result = mysqli_query($db,"SELECT * FROM `docrefs` WHERE `parent` = $dok_id AND reftype = 'behandlar'");
 
-echo "<div class=\"docrefs\">";
+echo "<div class=\"docrefs commenthide\">";
 
 if (mysqli_fetch_array($result)) {
 

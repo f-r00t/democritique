@@ -421,28 +421,9 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.reporttext').fadeOut();
+                            $('.activatedresult').find('.commenthide').fadeOut();
                             $('.activatedresult').find('.docrefs').fadeIn();
-                            $('.activatedresult').find('.debatetext').fadeOut();
-                            $('.activatedresult').find('.videodome').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
-
-                            $('.activatedresult').find('.docrefs').attr('id','activateddocrefs');
-
-                            var element = document.getElementById("activateddocrefs");
-
-                            if (element.offsetHeight < element.scrollHeight ||
-                                element.offsetWidth < element.scrollWidth) {
-                                $('#activateddocrefs').addClass('longdocrefs');
-                                $('.activatedresult').find('.expander').fadeIn();
-                                $('.activatedresult').find('.expander').click(function(){
-                                    $('#activateddocrefs').toggleClass('longdocrefs');
-                                    // $(this).removeClass('activatedreporttext');
-                                    $('#activateddocrefs').toggleClass('extendeddocrefs');
-
-                            });
-
-                        }
 
                         });
 
@@ -450,12 +431,9 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.reporttext').fadeIn();
-                            $('.activatedresult').find('.docrefs').fadeOut();
-                            $('.activatedresult').find('.debatetext').fadeOut();
-                            $('.activatedresult').find('.videodome').fadeOut();
+                            $('.activatedresult').find('.commenthide').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
-                            $('.activatedresult').find('.expander').fadeOut();
+                            $('.activatedresult').find('.reporttext').fadeIn();
 
                         });
 
@@ -463,14 +441,12 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.reporttext').fadeOut();
-                            $('.activatedresult').find('.docrefs').fadeOut();
+                            $('.activatedresult').find('.commenthide').fadeOut();
                             $('.activatedresult').find('.debatetext').fadeIn();
-                            $('.activatedresult').find('.expander').fadeOut();
                             width = $(window).width();
                             if ( !$( ".videodome" ).length ) {
 
-                                $('.activatedresult').find('.debatetext').after('<iframe class="videodome" src="https://www.riksdagen.se/views/pages/embedpage.aspx?did=' + dok_id + '" width="' + (width*0.9) + '" height="' + (width*0.5) + '" allowfullscreen=""></iframe>');
+                                $('.activatedresult').find('.debatetext').after('<iframe class="videodome commenthide" src="https://www.riksdagen.se/views/pages/embedpage.aspx?did=' + dok_id + '" width="' + (width*0.9) + '" height="' + (width*0.5) + '" allowfullscreen=""></iframe>');
 
                             }
                             e.stopPropagation();
@@ -480,13 +456,9 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.reporttext').fadeOut();
-                            $('.activatedresult').find('.docrefs').fadeOut();
-                            $('.activatedresult').find('.debatetext').fadeOut();
-                            $('.activatedresult').find('.videodome').fadeOut();
+                            $('.activatedresult').find('.commenthide').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
                             $('.activatedresult').find('.decision').fadeIn();
-                            $('.activatedresult').find('.expander').fadeOut();
 
 
                         });
@@ -649,11 +621,13 @@ function clickHandlers() { // this binds the click function on results
                             // Comment writing mode
 
                             $('.activatedresult').find('.commenthide').fadeOut();
+                            $('.activatedresult').find('.timeline').fadeOut();
+                            $('.activatedcomments').find('.timeline').fadeOut();
 
 
 
                             // Clone and insert comment form
-
+                            $('.activatedresult').find("#postcomment").remove();
                             commentTarget = $('.activatedresult').find('.comdiv');
                             $("#postcomment").clone().insertAfter(commentTarget);
                             $('.activatedresult').find("#postcomment").fadeIn();

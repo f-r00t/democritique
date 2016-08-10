@@ -19,8 +19,8 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 
 	# REMEMBER TO REMOVE
 
-	yesterday = '2016-01-01'
-	today = '2016-08-01'
+	yesterday = '2015-09-01'
+	today = '2015-12-31'
 
 
 
@@ -72,8 +72,8 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 
    		# REMEMBER TO REMOVE
 
-		yesterday = '2016-01-01'
-		today = '2016-08-01'
+		yesterday = '2015-09-01'
+		today = '2015-12-31'
 
 		# -----
 

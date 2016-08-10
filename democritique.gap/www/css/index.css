@@ -223,7 +223,8 @@ h1 {
   padding: 12px 0 0 0;
   color: rgba(255, 255, 255, 0.8);
   /*border-radius: 0 0 20px 20px;*/
-  max-width: 100%; }
+  max-width: 100%;
+  overflow-y: scroll; }
 
 .resultbody p, .resultbody a {
   margin: 10px;
@@ -317,8 +318,6 @@ h1 {
     }
 }*/
 .comments {
-  height: 80%;
-  overflow-y: scroll;
   overflow-x: hidden; }
 
 #postcomment {
@@ -442,9 +441,7 @@ h1 {
 
 .reporttext {
   display: none;
-  height: 38px;
-  padding-top: 5px;
-  overflow: hidden; }
+  padding-top: 5px; }
 
 .extendedreporttext {
   height: auto; }
@@ -548,13 +545,14 @@ h1 {
     color: #424242; }
 
 .timelineitem::after {
-  position: absolute;
+  position: relative;
   content: ">";
-  margin-top: -56px;
-  margin-left: 3%; }
+  top: -58px;
+  left: 10px; }
 
 .first::after {
-  content: ""; }
+  content: ".";
+  color: transparent; }
 
 .docrefs {
   display: none;
@@ -722,9 +720,7 @@ h1 {
 
 .decision {
   display: none;
-  height: 38px;
-  padding-top: 5px;
-  overflow: hidden; }
+  padding-top: 5px; }
 
 .extendeddecision {
   height: auto; }
@@ -794,9 +790,7 @@ h1 {
   max-width: 24px; }
 
 .docrefs {
-  height: 38px;
   width: 90%;
-  overflow: hidden;
   position: relative; }
 
 .extendeddocrefs {

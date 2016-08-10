@@ -638,10 +638,7 @@ def fixMissingVotes():
 
 
 
-# updatePropositions()
-# updateMotions()
 
-fixMissingVotes()
 #
 # links = []
 # links.append("//data.riksdagen.se/voteringlista/?bet=KU20&punkt=&valkrets=&rost=&iid=&sz=500&utformat=xml&gruppering=")
@@ -651,13 +648,19 @@ fixMissingVotes()
 
 # updateReports()
 #
-# links = getURLs('bet')
-# data = getBetData(links)
-#
-# for item in data:
-# 	databaseConnector.insert_bet(*item)
+links = getURLs('bet')
+data = getBetData(links)
 
-# data = getDocRefers(links)
+for item in data:
+	databaseConnector.insert_bet(*item)
+
+
+getDocRefers(links)
+updatePropositions()
+updateMotions()
+fixMissingVotes()
+
+
 
 ############################--><---#################
 

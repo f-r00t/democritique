@@ -332,7 +332,7 @@ function clickHandlers() { // this binds the click function on results
                         // $(this).addClass('activatedresult');
                         // $(this).removeAttr('style');
 
-                        $('#bodyid').css('overflow-y','hidden');
+                        // $('#bodyid').css('overflow-y','hidden');
 
 
                         dok_id = $(this).attr("dok_id"); // The currently read results ID
@@ -455,6 +455,7 @@ function clickHandlers() { // this binds the click function on results
                             $('.activatedresult').find('.debatetext').fadeOut();
                             $('.activatedresult').find('.videodome').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
+                            $('.activatedresult').find('.expander').fadeOut();
 
                         });
 
@@ -465,6 +466,7 @@ function clickHandlers() { // this binds the click function on results
                             $('.activatedresult').find('.reporttext').fadeOut();
                             $('.activatedresult').find('.docrefs').fadeOut();
                             $('.activatedresult').find('.debatetext').fadeIn();
+                            $('.activatedresult').find('.expander').fadeOut();
                             width = $(window).width();
                             if ( !$( ".videodome" ).length ) {
 
@@ -484,6 +486,7 @@ function clickHandlers() { // this binds the click function on results
                             $('.activatedresult').find('.videodome').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
                             $('.activatedresult').find('.decision').fadeIn();
+                            $('.activatedresult').find('.expander').fadeOut();
 
 
                         });
@@ -532,32 +535,6 @@ function clickHandlers() { // this binds the click function on results
                         $('.activatedreporttext').wrapInner('<p></p>');
 
 
-                        var element = document.getElementById("specialreport");
-
-                        if (element.offsetHeight < element.scrollHeight ||
-                            element.offsetWidth < element.scrollWidth) {
-                            $('.activatedresult').find('.reporttext').addClass('longreporttext');
-                            $('.activatedreporttext').click(function(){
-                                $(this).toggleClass('longreporttext');
-                                // $(this).removeClass('activatedreporttext');
-                                $(this).toggleClass('extendedreporttext')
-
-                            });
-
-                        }
-
-                        $('.activatedresult').find('.decision').attr('id','specialdecision');
-                        $('.activatedresult').find('.decision').addClass('activateddecision');
-
-
-                        $('.activateddecision').click(function(){
-                                $(this).toggleClass('longdecision');
-                                // $(this).removeClass('activatedreporttext');
-                                $(this).toggleClass('extendeddecision')
-
-                            });
-
-
                         // Locks scroll position in place
 
                         // var stopScroll = function(e) {
@@ -571,14 +548,18 @@ function clickHandlers() { // this binds the click function on results
                         // $(this).find('.comments').attr('id','coolcomments');
                         // document.getElementById('coolcomments').addEventListener('touchmove', function(e){e.stopPropagation()}, false);
 
-                        $('.activatedresult').on('touchmove',function(e){
-                            if(!$('.comments').has($(e.target)).length){
-                                e.preventDefault();
-                            }
-                            if(!$('.extendeddocrefs').has($(e.target)).length){
-                                e.preventDefault();
-                            }
-                        });
+                        // THE ACTUAL FUNCTION FOR NO SCROLL
+
+                        // $('.activatedresult').on('touchmove',function(e){
+                        //     if(!$('.comments').has($(e.target)).length){
+                        //         e.preventDefault();
+                        //     }
+                        //     if(!$('.extendeddocrefs').has($(e.target)).length){
+                        //         e.preventDefault();
+                        //     }
+                        // });
+
+                        // END OF THE ACTUAL FUNCTION FOR NO SCROLL
 
 
                         // $(document).on("touchmove", function(e) { e.preventDefault() }); $(document).on("touchmove", ".comments", function(e) { e.stopPropagation() });

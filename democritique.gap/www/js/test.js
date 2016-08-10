@@ -34,7 +34,7 @@ document.addEventListener("deviceready", function(){
 
 
     $(window).scroll(function() { // When user scrolls to the bottom
-       if($(window).scrollTop() + $(window).height() == $(document).height()) {
+       if($(window).scrollTop() + $(window).height() == $(document).height() && !$('.activatedresult').length) {
 
          $('.load-bar').show();
 

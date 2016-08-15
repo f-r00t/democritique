@@ -33,6 +33,11 @@ while($row = mysqli_fetch_array($result))
       $vote = $brow['vote'];
       $party = $brow['party'];
 
+      if ($party == 'FP' || $party == 'fp') {
+
+        $party = 'L';
+      }
+
       $partyvotes[$party] = $vote;
 
   }

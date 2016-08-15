@@ -539,6 +539,31 @@ def updateReports():
 	for item in data:
 		databaseConnector.insert_bet(*item)
 
+def getMissingDocRefers():
+
+	dokidslist = databaseConnector.check_refless_reports()
+
+	print len(dokidslist)
+
+	links = []
+
+	for dokid in dokidslist:
+
+		urls = getVotations.get_riksdata(False, dokid[0])
+
+		soup = BeautifulSoup(str(urls))
+
+		dok_url = soup.findAll('h3')
+		soup = BeautifulSoup(str(dok_url))
+
+		for link in soup.findAll('a'):
+
+		    links.append(link.get('href'))
+		    print 'Reading: ' + link.get('href')
+
+	data = getDocRefers(links)
+
+
 def updateMotions():
 
 	dokidslist = databaseConnector.check_motions()
@@ -648,14 +673,14 @@ def fixMissingVotes():
 
 # updateReports()
 #
-links = getURLs('bet')
-data = getBetData(links)
+# links = getURLs('bet')
+# data = getBetData(links)
+#
+# for item in data:
+# 	databaseConnector.insert_bet(*item)
 
-for item in data:
-	databaseConnector.insert_bet(*item)
 
-
-getDocRefers(links)
+getMissingDocRefers()
 updatePropositions()
 updateMotions()
 fixMissingVotes()

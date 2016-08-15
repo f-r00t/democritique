@@ -36,16 +36,16 @@ while($row = mysqli_fetch_array($result))
   echo "<p>" . $row['datum'] . "</p>";
   echo "</div>";
 
-  echo "<div class=\"timeline\">";
+  echo "<div class=\"timeline commenthide\">";
   echo "<div class=\"timelineitem first\"><span>1</span><p>Förslag</p></div>";
   echo "<div class=\"timelineitem second active\"><span>2</span><p>Beredning</p></div>";
   echo "<div class=\"timelineitem third\"><span>3</span><p>Debatt</p></div>";
   echo "<div class=\"timelineitem fourth\"><span>4</span><p>Beslut</p></div>";
   echo "</div>";
 
-  echo "<div class=\"reporttext commenthide\">" . utf8_encode($row['description']) . "</div>";
+  echo "<div class=\"reporttext commenthide timelinehide\">" . utf8_encode($row['description']) . "</div>";
 
-  echo "<div class=\"debatetext commenthide\">";
+  echo "<div class=\"debatetext commenthide timelinehide\">";
 
   if (utf8_encode($row['beslut']) == 'planerat' )
   {
@@ -59,7 +59,7 @@ while($row = mysqli_fetch_array($result))
 
   echo "</div>";
 
-  echo "<div class=\"decision commenthide\">";
+  echo "<div class=\"decision commenthide timelinehide\">";
 
   if (utf8_encode($row['beslut']) == 'planerat' )
   {
@@ -92,7 +92,7 @@ while($row = mysqli_fetch_array($result))
 
   echo "</div>";
 
-  echo "<div class=\"activatedresultbuttons\">";
+  echo "<div class=\"activatedresultbuttons commenthide\">";
 
   echo "<a href=\"#\" onclick=\"window.open('http://docs.google.com/viewer?url=" . $row['pdf'] . ".pdf', '_blank', 'location=no');\">";
   echo "<div class=\"activatedbuttontable\" id=\"doclink\">";

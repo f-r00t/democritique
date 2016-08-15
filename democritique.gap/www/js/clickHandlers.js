@@ -325,6 +325,9 @@ function clickHandlers() { // this binds the click function on results
                         $(this).unbind('click');
                         $('.load-bar').show(); // Show loadbar while getting extra data
 
+                        $('#bodyid').css('overflow','hidden');
+                        $('#results').css('overflow','hidden');
+
                         $( this ).clone().appendTo( "#bodyid" ).addClass('activatedresult'); // Clone clicked result
 
                          // Add extra class for clicked div
@@ -347,7 +350,7 @@ function clickHandlers() { // this binds the click function on results
 
                             $.post('http://lingon.funkar.nu/sites/riksdagen/php/upvote.php',{'user_id': userID, 'dok_id': JSON.stringify(dok_id)}, function(data) { // Send upvote
 
-                                currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
+                                var currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
 
                                 currentVoteCount = parseInt(currentVoteCount)+parseInt(data.charAt(0)); // Add 1 (or 0 if vote has already been cast)
 
@@ -359,9 +362,9 @@ function clickHandlers() { // this binds the click function on results
 
                                     $('.activatedresult').find('.downvote').next().addClass('votingSubtractClass');
 
-                                    currentSubVoteCount = $('.votingSubtractClass').text(); // Get current amount of votes
+                                    var currentSubVoteCount = $('.votingSubtractClass').text(); // Get current amount of votes
 
-                                    currentSubVoteCount = parseInt(currentVoteCount)-1; // Add 1 (or 0 if vote has already been cast)
+                                    currentSubVoteCount = parseInt(currentSubVoteCount)-1; // Add 1 (or 0 if vote has already been cast)
 
                                     $('.votingSubtractClass').text(currentSubVoteCount); // Set new amount of downvotes
                                     $('.votingSubtractClass').removeClass('votingSubtractClass'); // Remove class
@@ -386,7 +389,7 @@ function clickHandlers() { // this binds the click function on results
 
                             $.post('http://lingon.funkar.nu/sites/riksdagen/php/downvote.php',{'user_id': userID, 'dok_id': JSON.stringify(dok_id)}, function(data) { // Send upvote
 
-                                currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
+                                var currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
 
                                 currentVoteCount = parseInt(currentVoteCount)+parseInt(data.charAt(0)); // Add 1 (or 0 if vote has already been cast)
 
@@ -397,7 +400,7 @@ function clickHandlers() { // this binds the click function on results
 
                                     $('.activatedresult').find('.upvote').next().addClass('votingSubtractClass');
 
-                                    currentSubVoteCount = $('.votingSubtractClass').text(); // Get current amount of votes
+                                    var currentSubVoteCount = $('.votingSubtractClass').text(); // Get current amount of votes
 
                                     currentSubVoteCount = parseInt(currentSubVoteCount)-1; // Add 1 (or 0 if vote has already been cast)
 
@@ -421,7 +424,7 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.commenthide').fadeOut();
+                            $('.activatedresult').find('.timelinehide').fadeOut();
                             $('.activatedresult').find('.docrefs').fadeIn();
                             $('.activatedresult').find('.videodome').remove();
 
@@ -431,7 +434,7 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.commenthide').fadeOut();
+                            $('.activatedresult').find('.timelinehide').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
                             $('.activatedresult').find('.reporttext').fadeIn();
 
@@ -441,12 +444,12 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.commenthide').fadeOut();
+                            $('.activatedresult').find('.timelinehide').fadeOut();
                             $('.activatedresult').find('.debatetext').fadeIn();
                             width = $(window).width();
                             if ( !$( ".videodome" ).length ) {
 
-                                $('.activatedresult').find('.debatetext').after('<iframe class="videodome commenthide" src="https://www.riksdagen.se/views/pages/embedpage.aspx?did=' + dok_id + '" width="' + (width*0.9) + '" height="' + (width*0.5) + '" allowfullscreen=""></iframe>');
+                                $('.activatedresult').find('.debatetext').after('<iframe class="videodome commenthide timelinehide" src="https://www.riksdagen.se/views/pages/embedpage.aspx?did=' + dok_id + '" width="' + (width*0.9) + '" height="' + (width*0.5) + '" allowfullscreen=""></iframe>');
 
                             }
                             e.stopPropagation();
@@ -456,7 +459,7 @@ function clickHandlers() { // this binds the click function on results
 
                             $('.activatedresult').find('.active').removeClass('active');
                             $(this).addClass('active');
-                            $('.activatedresult').find('.commenthide').fadeOut();
+                            $('.activatedresult').find('.timelinehide').fadeOut();
                             $('.activatedresult').find('.videodome').remove();
                             $('.activatedresult').find('.decision').fadeIn();
 
@@ -497,7 +500,7 @@ function clickHandlers() { // this binds the click function on results
                         $("#closebutton").fadeIn();
 
                         $('.activatedresult').find('.activatedresultbuttons').fadeIn();
-                        $(".activatedresult").find('.resultbuttons').fadeOut();
+                        $(".activatedresult").find('.resultbuttons').remove();
 
                         $(".activatedresult").find('.timeline').fadeIn();
 
@@ -509,12 +512,12 @@ function clickHandlers() { // this binds the click function on results
 
                         // Locks scroll position in place
 
-                        // var stopScroll = function(e) {
-                        //     e.preventDefault();
-                        // };
+                        var stopScroll = function(e) {
+                            e.preventDefault();
+                        };
 
-                        // document.getElementById('results').addEventListener('touchmove', stopScroll, false);
-                        // document.getElementById('bodyid').addEventListener('touchmove', stopScroll, false);
+                        document.getElementById('results').addEventListener('touchmove', stopScroll, false);
+                        document.getElementById('bodyid').addEventListener('touchmove', stopScroll, false);
 
 
                         // $(this).find('.comments').attr('id','coolcomments');
@@ -590,6 +593,7 @@ function clickHandlers() { // this binds the click function on results
 
                         commentclass = 'comments'+dok_id;
                         $('.activatedresult').find('.comments').addClass(commentclass);
+                        $('.activatedresult').find('.comments').css('padding-bottom', '60px');
 
 
                         // Click function for the comment-button
@@ -608,8 +612,10 @@ function clickHandlers() { // this binds the click function on results
                                 $('.activatedresult').find('.reporttext').fadeIn();
                                 $('.activatedresult').find('.activatedresultbuttons').fadeIn();
                                 $('.activatedresult').find('#postcomment').fadeOut();
+                                $('.activatedresult').find('#postcomment').remove();
                                 $('.activatedcomments').fadeIn();
                                 $('.activatedresult').find('.timeline').fadeIn();
+                                $('.activatedresult').find('.comments').fadeIn();
 
                                 closeButton()
 
@@ -621,9 +627,6 @@ function clickHandlers() { // this binds the click function on results
                             // Comment writing mode
 
                             $('.activatedresult').find('.commenthide').fadeOut();
-                            $('.activatedresult').find('.timeline').fadeOut();
-                            $('.activatedcomments').find('.timeline').fadeOut();
-
 
 
                             // Clone and insert comment form
@@ -666,14 +669,16 @@ function clickHandlers() { // this binds the click function on results
                                             })
 
                                         $('.load-bar').hide(); // Post completed!
-                                        $('.activatedcomments').fadeIn(); // Get those comments back!
+                                        $('.activatedresult').find('.comments').fadeIn(); // Get those comments back!
 
                                     });
 
                                     // Comment writing mode deactivated
 
                                     $('.activatedresult').find('.resultbodytext').fadeIn();
+                                    $('.activatedresult').find('.reporttext').fadeIn();
                                     $('.activatedresult').find('.timeline').fadeIn();
+                                    $('.activatedresult').find('.activatedresultbuttons').fadeIn();
 
 
                                 }else{

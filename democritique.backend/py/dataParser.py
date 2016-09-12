@@ -514,7 +514,11 @@ def getDocRefers(links):
 
 def updateReports():
 
+	print "Checking reports that are due to have been voted upon.."
+
 	dokidslist = databaseConnector.check_reports()
+
+	print "Found the following amount of such reports:"
 
 	print len(dokidslist)
 
@@ -549,7 +553,7 @@ def getMissingDocRefers():
 
 	for dokid in dokidslist:
 
-		urls = getVotations.get_riksdata(False, dokid[0])
+		urls = getVotations.get_riksdata(False, dokid[0].encode('utf-8'))
 
 		soup = BeautifulSoup(str(urls))
 
@@ -620,29 +624,6 @@ def updatePropositions():
 	for item in data:
 		databaseConnector.insert_prop(*item)
 
-def fixMissingDocRefs():
-
-	dokidslist = databaseConnector.check_refless_reports()
-
-	print len(dokidslist)
-
-	links = []
-
-	for dokid in dokidslist:
-
-		urls = getVotations.get_riksdata(False, dokid[0])
-
-		soup = BeautifulSoup(str(urls))
-
-		dok_url = soup.findAll('h3')
-		soup = BeautifulSoup(str(dok_url))
-
-		for link in soup.findAll('a'):
-
-		    links.append(link.get('href'))
-		    print 'Reading: ' + link.get('href')
-
-	data = getDocRefers(links)
 
 def fixMissingVotes():
 
@@ -678,7 +659,7 @@ def fixMissingVotes():
 #
 # for item in data:
 # 	databaseConnector.insert_bet(*item)
-
+#
 
 getMissingDocRefers()
 updatePropositions()

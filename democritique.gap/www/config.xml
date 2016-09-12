@@ -3,8 +3,8 @@
 <!-- config.xml reference: https://build.phonegap.com/docs/config-xml -->
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
-        id        = "com.lingon.democritique"
-        version   = "1.0.0">
+        id        = "se.lingonbyran.democritique"
+        version   = "1.0.62">
 
     <name>Democritique</name>
 
@@ -51,59 +51,68 @@
     <!-- Plugins -->
 
     <!-- Core plugins -->
-    <gap:plugin name="org.apache.cordova.battery-status" />
-    <gap:plugin name="org.apache.cordova.camera" />
-    <gap:plugin name="org.apache.cordova.media-capture" />
-    <gap:plugin name="org.apache.cordova.console" />
-    <gap:plugin name="org.apache.cordova.contacts" />
-    <gap:plugin name="org.apache.cordova.device" />
-    <gap:plugin name="org.apache.cordova.device-motion" />
-    <gap:plugin name="org.apache.cordova.device-orientation" />
-    <gap:plugin name="org.apache.cordova.dialogs" />
-    <gap:plugin name="org.apache.cordova.file" />
-    <gap:plugin name="org.apache.cordova.file-transfer" />
-    <gap:plugin name="org.apache.cordova.geolocation" />
-    <gap:plugin name="org.apache.cordova.globalization" />
-    <gap:plugin name="org.apache.cordova.inappbrowser" />
-    <gap:plugin name="org.apache.cordova.media" />
-    <gap:plugin name="org.apache.cordova.network-information" />
-    <gap:plugin name="org.apache.cordova.splashscreen" />
-    <gap:plugin name="org.apache.cordova.vibration" />
+    <!-- <plugin name="org.apache.cordova.battery-status" />
+    <plugin name="org.apache.cordova.camera" />
+    <plugin name="org.apache.cordova.media-capture" /> -->
+    <plugin name="org.apache.cordova.console" />
+    <!-- <plugin name="org.apache.cordova.contacts" /> -->
+    <plugin name="org.apache.cordova.device" />
+    <plugin name="org.apache.cordova.device-motion" />
+    <plugin name="org.apache.cordova.device-orientation" />
+    <plugin name="org.apache.cordova.dialogs" />
+    <plugin name="org.apache.cordova.file" />
+    <plugin name="org.apache.cordova.file-transfer" />
+    <!-- <plugin name="org.apache.cordova.geolocation" /> -->
+    <plugin name="org.apache.cordova.globalization" />
+    <plugin name="org.apache.cordova.inappbrowser" />
+    <plugin name="org.apache.cordova.media" />
+    <plugin name="org.apache.cordova.network-information" />
+    <plugin name="org.apache.cordova.splashscreen" />
+    <plugin name="org.apache.cordova.vibration" />
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->
     <!--
-        <gap:plugin name="com.phonegap.plugins.barcodescanner" />
+        <plugin name="com.phonegap.plugins.barcodescanner" />
     -->
 
-    <!-- Define app icon for each platform. -->
-    <icon src="www/res/icon/android/icon.png" />
-    <!-- <icon src="www/res/icon/android/icon.png"   gap:platform="android"    gap:qualifier="ldpi" />
-    <icon src="www/res/icon/android/icon.png"   gap:platform="android"    gap:qualifier="mdpi" />
-    <icon src="www/res/icon/android/icon.png"   gap:platform="android"    gap:qualifier="hdpi" />
-    <icon src="www/res/icon/android/icon.png"  gap:platform="android"    gap:qualifier="xhdpi" />
-    <icon src="www/res/icon/blackberry/icon-80.png"     gap:platform="blackberry" />
-    <icon src="www/res/icon/blackberry/icon-80.png"     gap:platform="blackberry" gap:state="hover"/>
-    <icon src="www/res/icon/ios/icon-57.png"            gap:platform="ios"        width="57" height="57" />
-    <icon src="www/res/icon/ios/icon-72.png"            gap:platform="ios"        width="72" height="72" />
-    <icon src="www/res/icon/ios/icon-57-2x.png"         gap:platform="ios"        width="114" height="114" />
-    <icon src="www/res/icon/ios/icon-72-2x.png"         gap:platform="ios"        width="144" height="144" />
-    <icon src="www/res/icon/webos/icon-64.png"          gap:platform="webos" />
-    <icon src="www/res/icon/windows-phone/icon-48.png"  gap:platform="winphone" />
-    <icon src="www/res/icon/windows-phone/icon-173-tile.png" gap:platform="winphone"   gap:role="background" /> -->
+    <icon gap:platform="ios" src="res/icons/ios/icon-small.png" width="29" height="29" />
+<icon gap:platform="ios" src="res/icons/ios/icon-small-2x.png" width="58" height="58" />
+<icon gap:platform="ios" src="res/icons/ios/icon-40.png" width="40" height="40" />
+<icon gap:platform="ios" src="res/icons/ios/icon-40-2x.png" width="80" height="80" />
+<icon gap:platform="ios" src="res/icons/ios/icon-50.png" width="50" height="50" />
+<icon gap:platform="ios" src="res/icons/ios/icon-50-2x.png" width="100" height="100" />
+<icon gap:platform="ios" src="res/icons/ios/icon.png" width="57" height="57" />
+<icon gap:platform="ios" src="res/icons/ios/icon-2x.png" width="114" height="114" />
+<icon gap:platform="ios" src="res/icons/ios/icon-60.png" width="60" height="60" />
+<icon gap:platform="ios" src="res/icons/ios/icon-60-2x.png" width="120" height="120" />
+<icon gap:platform="ios" src="res/icons/ios/icon-60-3x.png" width="180" height="180" />
+<icon gap:platform="ios" src="res/icons/ios/icon-72.png" width="72" height="72" />
+<icon gap:platform="ios" src="res/icons/ios/icon-72-2x.png" width="144" height="144" />
+<icon gap:platform="ios" src="res/icons/ios/icon-76.png" width="76" height="76" />
+<icon gap:platform="ios" src="res/icons/ios/icon-76-2x.png" width="152" height="152" />
 
-    <!-- Define app splash screen for each platform. -->
-    <gap:splash src="www/res/screen/android/screen-ldpi-portrait.png"       gap:platform="android" gap:qualifier="port-ldpi" />
-    <gap:splash src="www/res/screen/android/screen-mdpi-portrait.png"       gap:platform="android" gap:qualifier="port-mdpi" />
-    <gap:splash src="www/res/screen/android/screen-hdpi-portrait.png"       gap:platform="android" gap:qualifier="port-hdpi" />
-    <gap:splash src="www/res/screen/android/screen-xhdpi-portrait.png"      gap:platform="android" gap:qualifier="port-xhdpi" />
-    <gap:splash src="www/res/screen/blackberry/screen-225.png"              gap:platform="blackberry" />
-    <gap:splash src="www/res/screen/ios/screen-iphone-portrait.png"         gap:platform="ios"     width="320" height="480" />
-    <gap:splash src="www/res/screen/ios/screen-iphone-portrait-2x.png"      gap:platform="ios"     width="640" height="960" />
-    <gap:splash src="www/res/screen/ios/screen-iphone-portrait-568h-2x.png" gap:platform="ios"     width="640" height="1136" />
-    <gap:splash src="www/res/screen/ios/screen-ipad-portrait.png"           gap:platform="ios"     width="768" height="1024" />
-    <gap:splash src="www/res/screen/ios/screen-ipad-landscape.png"          gap:platform="ios"     width="1024" height="768" />
-    <gap:splash src="www/res/screen/windows-phone/screen-portrait.jpg"      gap:platform="winphone" />
+<gap:splash  src="res/screens/android/screen-hdpi-portrait.png" />
+
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait.png" width="320" height="480" />
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait-2x.png" width="640" height="960" />
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait-568h-2x.png" width="640" height="1136" />
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait-667h.png" width="750" height="1334" />
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-iphone-portrait-736h.png" width="1242" height="2208" />
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-portrait.png" width="768" height="1024" />
+<gap:splash gap:platform="ios" src="res/screens/ios/screen-ipad-portrait-2x.png" width="1536" height="2048" />
+
+<icon gap:platform="android" gap:qualifier="ldpi" src="res/icons/android/icon-36-ldpi.png"/>
+<icon gap:platform="android" gap:qualifier="mdpi" src="res/icons/android/icon-48-mdpi.png"/>
+<icon gap:platform="android" gap:qualifier="hdpi" src="res/icons/android/icon-72-hdpi.png"/>
+<icon gap:platform="android" gap:qualifier="xhdpi" src="res/icons/android/icon-96-xhdpi.png"/>
+<icon gap:platform="android" gap:qualifier="xxhdpi" src="res/icons/android/icon-144-xxhdpi.png"/>
+<icon gap:platform="android" gap:qualifier="xxxhdpi" src="res/icons/android/icon-192-xxxhdpi.png"/>
+
+<gap:splash gap:platform="android" gap:qualifier="ldpi" src="res/screens/android/screen-ldpi-portrait.png" />
+<gap:splash gap:platform="android" gap:qualifier="mdpi" src="res/screens/android/screen-mdpi-portrait.png" />
+<gap:splash gap:platform="android" gap:qualifier="hdpi" src="res/screens/android/screen-hdpi-portrait.png" />
+<gap:splash gap:platform="android" gap:qualifier="xhdpi" src="res/screens/android/screen-xhdpi-portrait.png" />
 
     <!--
         Define access to external domains.
@@ -136,6 +145,8 @@
         <allow-intent href="itms-apps:*" />
     </platform>
     <access origin=" * " />
+
+    <allow-navigation href="*://*riksdagen.se" />
 
 
 

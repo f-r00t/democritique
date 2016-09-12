@@ -86,7 +86,7 @@ while($row = mysqli_fetch_array($result))
 
 arsort($comparableVotes);
 
-echo "<div class='profileresults'>";
+echo "<div class='compassresults'>";
 
 foreach ($comparableVotes as $key => $vote) { // Iterate through comparableVotes array, where $key is a party
 

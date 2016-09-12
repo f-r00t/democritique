@@ -21,14 +21,16 @@ if (mysqli_fetch_array($result)) {
       $motionReq = mysqli_query($db, "SELECT * FROM motions WHERE dok_id = '$rowdokid'");
       $motionData = mysqli_fetch_array($motionReq);
       $party = $motionData['party'];
-      echo "<div dok_id=\"" . $row['dok_id'] . "\" class=\"docref motion " . $party . "\"  pdf=\"http://docs.google.com/viewer?url=" . $motionData['pdf'] . ".pdf\" >";
+      echo "<a href=\"#\" onclick=\"window.open('http://docs.google.com/viewer?url=" . $motionData['pdf'] . ".pdf', '_blank', 'location=no');\">";
+      echo "<div dok_id=\"" . $row['dok_id'] . "\" class=\"docref motion " . $party . "\">";
     }
     elseif (utf8_encode($row['doktype']) == "prop")
     {
       $propReq = mysqli_query($db, "SELECT * FROM propositions WHERE dok_id = '$rowdokid'");
       $propData = mysqli_fetch_array($propReq);
       $organ = $propData['organ'];
-      echo "<div dok_id=\"" . $row['dok_id'] . "\" pdf=\"http://docs.google.com/viewer?url=" . $propData['pdf'] . ".pdf\" class=\"docref prop " . $organ . "\">";
+      echo "<a href=\"#\" onclick=\"window.open('http://docs.google.com/viewer?url=" . $propData['pdf'] . ".pdf', '_blank', 'location=no');\">";
+      echo "<div dok_id=\"" . $row['dok_id'] . "\" class=\"docref prop " . $organ . "\">";
     }
     else {
 
@@ -39,6 +41,7 @@ if (mysqli_fetch_array($result)) {
 
     echo "<p>" . htmlspecialchars(utf8_encode($row['title'])) . "</p>";
     echo "</div>";
+    echo "</a>";
 
 
   }

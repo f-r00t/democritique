@@ -14,7 +14,17 @@ $type = $_POST["type"];
 
 // $result = mysqli_query($db,"SELECT * FROM `reports` WHERE beslut = 'planerat' AND datum < CURDATE() AND description <> ' ' ORDER BY `reports`.`datum` DESC LIMIT $position, $item_per_page");
 
-$happened = utf8_decode('inträffat');
+if ($_POST["type"] == 'planerat' )
+{
+
+  $happened = 'planerat';
+
+ }
+else {
+
+  $happened = utf8_decode('inträffat');
+
+}
 
 $result = mysqli_query($db,"SELECT * FROM `reports` WHERE beslut = '$happened' ORDER BY `reports`.`datum` DESC LIMIT $position, $item_per_page");
 
@@ -27,7 +37,7 @@ while($row = mysqli_fetch_array($result))
   $commentCount = $commentCount[0];
 
 
-  echo "<div dok_id=\"". utf8_encode($row['dok_id']) . "\" class=\"result\">";
+  echo "<div dok_id=\"". utf8_encode($row['dok_id']) . "\" dbid=\"". utf8_encode($row['index']) . "\" class=\"result\">";
   echo "<div class=\"resultheader\">";
   echo "<p>" . htmlspecialchars(utf8_encode($row['titel'])) . "</p>";
   echo "</div>";

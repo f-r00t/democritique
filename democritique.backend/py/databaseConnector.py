@@ -238,4 +238,67 @@ def insert_votes(dok_id, person_id, name, party, vote):
 
 	cnx.close()
 
+def insert_news(descr, title, link, domain, img):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	operation = ("INSERT IGNORE INTO news "
+	               "(description, title, link, domain, img) "
+	               "VALUES (%s, %s, %s, %s, %s)")
+
+
+	data = (descr, title, link, domain, img)
+
+	cursor.execute(operation, data)
+
+	cnx.commit()
+
+	cnx.close()
+
+def insert_globalvote(party, votes):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	operation = ("INSERT INTO globalvotes "
+	               "(party, votes) "
+	               "VALUES (%s, %s)")
+
+
+	data = (party, votes)
+
+	cursor.execute(operation, data)
+
+	cnx.commit()
+
+	cnx.close()
+
+def insert_globalvote2(party, votes, date):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	operation = ("INSERT INTO globalvotes "
+	               "(party, votes, date) "
+	               "VALUES (%s, %s, %s)")
+
+
+	data = (party, votes, date)
+
+	cursor.execute(operation, data)
+
+	cnx.commit()
+
+	cnx.close()
+
 # insert_prop('H203139','2014/15','Justitiedepartementet','2016-06-25','Europeisk skyddsorder')

@@ -10,12 +10,13 @@ $result = mysqli_query($db,"SELECT * FROM `docrefs` WHERE `parent` = $dok_id AND
 
 echo "<div class=\"docrefs commenthide timelinehide\">";
 
-if (mysqli_fetch_array($result)) {
+if (mysqli_num_rows($result)) {
 
   while($row = mysqli_fetch_array($result))
   {
 
    $rowdokid = $row['dok_id'];
+
     if (utf8_encode($row['doktype']) == "mot")
     {
       $motionReq = mysqli_query($db, "SELECT * FROM motions WHERE dok_id = '$rowdokid'");
@@ -47,7 +48,6 @@ if (mysqli_fetch_array($result)) {
   }
 
   echo "</div>";
-  echo "<div class=\"expander\"><img src=\"img/plusring.svg\" /><p>Visa fler</p></div>";
 
 } else {
   echo "<p>Det finns inga tidigare lagförslag för den här frågan.</p>";

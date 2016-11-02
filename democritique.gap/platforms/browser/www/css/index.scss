@@ -94,7 +94,6 @@ h1 {
     background-color:#4B946A;
     display:none;
 }
-
 @keyframes fade {
     from { opacity: 1.0; }
     50% { opacity: 0.4; }
@@ -132,6 +131,7 @@ h1 {
     height:100%;
     background:url(../img/logo.svg) no-repeat center center;
     background-size: 50%;
+    opacity: 0.3;
 }
 
 #karma {
@@ -271,7 +271,7 @@ h1 {
   overflow-x: hidden;
 }
 
-.activatedresult {
+.activatedresult, .removeNow {
 
   .resultbody {
     overflow-y: scroll;
@@ -491,9 +491,9 @@ h1 {
     background-color: rgba(0,0,0,0);
     height: 15%;
     width: 80%;
-    color: rgba(255,255,255,0.38);
+    color: rgba(255,255,255,0.8);
     font-family: 'Varela Round', sans-serif;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 10px;
     border: 3px solid white;
     margin-left: 10%;
@@ -569,7 +569,7 @@ h1 {
   bottom: 0px;
   width: 100%;
   height: 6px;
-  background-color: #fdba2c;
+  background-color: rgba(0,0,0,0.3);
   z-index: 999;
 }
 .bar {
@@ -582,17 +582,17 @@ h1 {
   text-align: center;
 }
 .bar:nth-child(1) {
-  background-color: #da4733;
+  background-color: rgba(255,255,255,0.3);
   animation: loading 3s linear infinite;
 }
 .bar:nth-child(2) {
-  background-color: #3b78e7;
+  background-color: rgba(0,0,0,0.3);
   animation: loading 3s linear 1s infinite;
 }
-.bar:nth-child(3) {
-  background-color: #fdba2c;
-  animation: loading 3s linear 2s infinite;
-}
+// .bar:nth-child(3) {
+//   background-color: #3F51B5;
+//   animation: loading 3s linear 2s infinite;
+// }
 @keyframes loading {
     from {left: 50%; width: 0;z-index:100;}
     33.3333% {left: 0; width: 100%;z-index: 10;}
@@ -600,7 +600,7 @@ h1 {
 }
 .activatedresult{
 
-    width: 95.3%;
+    width: calc(100% - 15px);
 }
 .reporttext{
     display: none;
@@ -943,7 +943,7 @@ h1 {
 
 }
 
-.domain {
+.domain, .moment {
 
   opacity: 0.5;
   font-size: 10px;
@@ -1044,6 +1044,9 @@ h1 {
   width:100%;
   height:100%;
   z-index: 998;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  background-color: rgba(0,0,0,0.3);
 }
 
 .menuitem {
@@ -1194,10 +1197,10 @@ h1 {
 
 .newstext {
 
-  font-size: 9px;
+  font-size: 10px;
   margin-left: 4%;
   margin-top: 1%;
-  color: rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.3);
 
   overflow: hidden;
    text-overflow: ellipsis;
@@ -1254,9 +1257,9 @@ h1 {
   .divisor {
 
       width: 100%;
-      height: 1px;
+      height: 2px;
       margin: 0px;
-      background-color: rgba(255,255,255,0.2);
+      background-color: rgba(0,0,0,0.2);
       margin-left: 0;
 
   }
@@ -1275,6 +1278,122 @@ margin-bottom: 1%;
 font-family: sans-serif;
 font-weight: bold;
 font-size: 10px;
-color: rgba(0,0,0,0.5);
+color: rgba(0,0,0,0.7);
+
+}
+
+.noresultsfound {
+
+  font-family: 'Varela Round', sans-serif;
+  font-size: 15px;
+  text-shadow: 1px 1px rgba(0,0,0,0.5);
+  padding-left: 5%;
+  padding-right: 5%;
+  color: rgba(255,255,255,0.8);
+
+
+}
+
+.preview {
+
+
+  background-color: rgba(0,0,0,0.4);
+  padding-top: 2%;
+  padding-bottom: 8%;
+  margin-left: 0;
+  border-left: none;
+
+.resultheader {
+  width:100%;
+  margin-left: 0;
+  margin-top: 0;
+  font-size:11px;
+  vertical-align: top;
+  padding: 0;
+  padding-bottom: 10px;
+  opacity: 0.5;
+
+}
+
+.resultbodytext {
+  font-size: 9px;
+  opacity: 0.5;
+}
+
+
+}
+
+.smallerdivi {
+  height: 1px;
+}
+
+.zigzag {
+
+  -webkit-mask-image: linear-gradient(0deg, transparent 30px, white 30px), linear-gradient(-135deg, white 15px, transparent 15px), linear-gradient(135deg, white 15px, transparent 15px);
+  -webkit-mask-position: left bottom;
+  -webkit-mask-repeat: repeat-x;
+  -webkit-mask-size: 100% 100%, 30px 30px, 30px 30px;
+
+}
+
+@media screen and (min-width: 768px) {
+
+  #headerlogo {
+    background-size: 25%;
+
+
+  }
+
+  #closebutton {
+    left: 94%;
+  }
+
+  .newsthumb  {
+
+    // width: 14%;
+  }
+
+  .newsitem {
+    .resultbuttons {
+      width: 90%;
+      .resultbutton {
+        width: 30%;
+      }
+    }
+  }
+
+  .startpagetitle {
+    font-size:12px;
+  }
+
+  .resultheader {
+    font-size: 12px;
+  }
+
+  .startpagenews {
+    padding-bottom: 2%;
+  }
+
+  #menu {
+
+    width: 30%;
+  }
+
+  .activatedresult {
+
+    box-shadow: -5px 0px 20px 0px rgba(0,0,0,0.75);
+
+
+  }
+
+  .activatedresult, .removeNow { // removeNow is the class for activated results
+                                 // that are being removed when a new result is
+    width: 50%;                  // clicked
+    margin-left: 50%;
+    .newsthumb {
+
+      width: 100%;
+    }
+  }
 
 }

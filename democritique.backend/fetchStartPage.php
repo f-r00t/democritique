@@ -6,8 +6,13 @@ include("db.php");
 
 $result = mysqli_query($db,"SELECT * FROM `news` ORDER BY `news`.`id` DESC LIMIT 3");
 
-echo "<div id='globalvoteswrapper' width='100%' height='200px'>";
-echo "<canvas id='globalvotes' width='100%' height='200px'></canvas>";
+echo "<p class='startpagetitle'>";
+echo "VECKANS STATISTIK";
+echo "</p>";
+
+echo "<div id='globalvoteswrapper' width='100%' height='250px'>";
+
+echo "<canvas id='globalvotes' width='100%' height='250px'></canvas>";
 echo "</div>";
 
 echo "<p class='startpagetitle'>";

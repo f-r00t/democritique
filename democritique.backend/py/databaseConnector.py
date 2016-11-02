@@ -39,6 +39,24 @@ def check_reports():
 
 	return data
 
+def check_reports2():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM reports WHERE beslut = 'planerat'")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
 
 def check_voteless_reports():
 
@@ -96,6 +114,25 @@ def check_refless_reports():
 
 	return data
 
+def check_decisions_reports():
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	query = ("SELECT dok_id FROM reports WHERE decision_id = ''")
+
+	cursor.execute(query)
+
+	data = cursor.fetchall()
+
+	cnx.close()
+
+	return data
+
+
 
 
 def check_motions():
@@ -145,7 +182,7 @@ def insert_prop(dok_id, rm, organ, datum, titel, pdf):
 
 	cursor = cnx.cursor()
 
-	add_proposition = ("INSERT INTO propositions "
+	add_proposition = ("REPLACE INTO propositions "
 	               "(dok_id, rm, organ, datum, titel, pdf) "
 	               "VALUES (%s, %s, %s, %s, %s, %s)")
 
@@ -165,7 +202,7 @@ def insert_mot(dok_id, rm, party, datum, titel, pdf):
 
 	cursor = cnx.cursor()
 
-	operation = ("INSERT INTO motions "
+	operation = ("REPLACE INTO motions "
 	               "(dok_id, rm, party, datum, titel, pdf) "
 	               "VALUES (%s, %s, %s, %s, %s, %s)")
 
@@ -185,13 +222,79 @@ def insert_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut,
 
 	cursor = cnx.cursor()
 
-	add_proposition = ("INSERT INTO reports "
+	add_proposition = ("REPLACE INTO reports "
 	               "(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription) "
 	               "VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)")
 
 	data_proposition = (dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription)
 
 	cursor.execute(add_proposition, data_proposition)
+
+	cnx.commit()
+
+	cnx.close()
+
+def update_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	update_proposition = ("""
+						UPDATE reports
+						SET dok_id=%s, dok_id_votes=%s, rm=%s, description=%s, datum=%s, titel=%s, pdf=%s, beslut=%s, beslutsdatum=%s, decisionDescription=%s
+						WHERE dok_id=%s
+						""")
+
+	data_proposition = (dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription, dok_id)
+
+	cursor.execute(update_proposition, data_proposition)
+
+	cnx.commit()
+
+	cnx.close()
+
+def insert_decision(dok_id, decision_id):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	update_proposition = ("""
+						UPDATE reports
+						SET decision_id=%s
+						WHERE dok_id=%s
+						""")
+
+	data_proposition = (decision_id, dok_id)
+
+	cursor.execute(update_proposition, data_proposition)
+
+	cnx.commit()
+
+	cnx.close()
+
+def insert_description(dok_id, description):
+
+	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
+	                              host='127.0.0.1',
+	                              database='riksdata')
+
+	cursor = cnx.cursor()
+
+	update_proposition = ("""
+						UPDATE reports
+						SET description=%s
+						WHERE dok_id=%s
+						""")
+
+	data_proposition = (description, dok_id)
+
+	cursor.execute(update_proposition, data_proposition)
 
 	cnx.commit()
 
@@ -218,7 +321,7 @@ def insert_refs(dok_id, title, doktype, reftype, parent):
 	cnx.close()
 
 
-def insert_votes(dok_id, person_id, name, party, vote):
+def insert_votes(dok_id, rm, person_id, name, party, vote):
 
 	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
 	                              host='127.0.0.1',
@@ -227,10 +330,10 @@ def insert_votes(dok_id, person_id, name, party, vote):
 	cursor = cnx.cursor()
 
 	operation = ("INSERT INTO polvotes "
-	               "(dok_id, person_id, name, party, vote) "
-	               "VALUES (%s, %s, %s, %s, %s)")
+	               "(dok_id, rm, person_id, name, party, vote) "
+	               "VALUES (%s, %s, %s, %s, %s, %s)")
 
-	data = (dok_id, person_id, name, party, vote)
+	data = (dok_id, rm, person_id, name, party, vote)
 
 	cursor.execute(operation, data)
 

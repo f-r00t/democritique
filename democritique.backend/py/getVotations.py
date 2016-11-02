@@ -19,8 +19,8 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 
 	# REMEMBER TO REMOVE
 
-	yesterday = '2016-06-18'
-	today = '2016-09-11'
+	# yesterday = '2016-09-12'
+	# today = '2016-09-18'
 
 
 
@@ -32,7 +32,7 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 		url = url+arg
 
 	if fetchLast24h == True:
-		url = url+'&from='+yesterday+'&tom='+today
+		url = url+'&from='+today+'&tom='+today
 
 
 	url = url+'&utformat=html&a=s'
@@ -72,8 +72,8 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 
    		# REMEMBER TO REMOVE
 
-		yesterday = '2016-06-18'
-		today = '2016-09-11'
+		# yesterday = '2016-09-12'
+		# today = '2016-09-18'
 
 		# -----
 
@@ -85,7 +85,7 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 			url = url+arg
 
 		if fetchLast24h == True:
-			url = url+'&from='+yesterday+'&tom='+today
+			url = url+'&from='+today+'&tom='+today
 
 		url = url+'&utformat=html&a=s&start='+str(nbrOfPages)
    		resp = b.open(url).read()

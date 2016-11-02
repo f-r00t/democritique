@@ -67,7 +67,7 @@
 
         <p class='menuitem' id="homebutton"><img src="img/home.svg" class="menuicon" />Start</p>
         <p class='menuitem' id="newsbutton"><img src="img/news.svg" class="menuicon" />Nyheter</p>
-        <p class='menuitem' style="display:none" id="billsbutton"><img src="img/report.svg" class="menuicon" />Lagförslag</p>
+        <p class='menuitem' id="billsbutton"><img src="img/report.svg" class="menuicon" />Lagförslag</p>
         <p class='menuitem' id='decisionsbutton'><img src="img/decision.svg" class="menuicon" />Beslut</p>
         <p class='menuitem' style="display:none" id="profilebutton"><img src="img/user.svg" class="menuicon" />Profil</p>
         <p class='menuitem' id="compassbutton"><img src="img/compass.svg" class="menuicon" />Partikompassen</p>
@@ -75,6 +75,7 @@
 
         </div>
         <div id="menufiller"></div>
+        <!-- !-<img src='' id='menufillerimage' />-! -->
 
         <div id="results">
 
@@ -85,7 +86,7 @@
 
             <form action=" " class="commentform">
 
-              <textarea rows="6" id="commentfield" placeholder="Skriv din kommentar här.."></textarea>
+              <textarea onfocus="$('#header').css({'position':'absolute','top':'0'})" rows="6" id="commentfield" placeholder="Skriv din kommentar här.."></textarea>
               <br><br>
               <input type="submit"  value="Skicka" id="postcommentbutton">
 
@@ -99,6 +100,7 @@
 
         </div>
         <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/html2canvas.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/test.js"></script>
@@ -107,6 +109,8 @@
         <script type="text/javascript" src="js/ajax.js"></script>
         <script type="text/javascript" src="js/chart.js"></script>
         <script type="text/javascript" src="js/moment.js"></script>
+        <script type="text/javascript" src="js/jquery.transform2d.js"></script>
+
         <!--<script type="text/javascript" src="js/main.js"></script>
 
 

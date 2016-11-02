@@ -26,7 +26,22 @@ else {
 
 }
 
-$result = mysqli_query($db,"SELECT * FROM `reports` WHERE beslut = '$happened' ORDER BY `reports`.`datum` DESC LIMIT $position, $item_per_page");
+$result = mysqli_query($db,"SELECT * FROM `reports` WHERE beslut = '$happened' AND description <> '' ORDER BY `reports`.`datum` DESC LIMIT $position, $item_per_page");
+
+if ($happened == 'planerat' && mysql_num_rows($result) == 0 && $page_number > 0 ) {
+
+
+  $result2 = mysqli_query($db,"SELECT beslutsdatum FROM reports WHERE beslut = 'planerat' AND beslutsdatum > CURDATE() ORDER BY `reports`.`datum` ASC LIMIT 1");
+  $row2 = mysqli_fetch_assoc($result2);
+  $nextdebate = substr($row2['beslutsdatum'], 0, -9);
+
+  echo "<p class='noresultsfound'>Tyvärr finns inga boklagda lagförslag i databasen just nu. <br><br>";
+  echo "Lagförslagen publiceras en dag innan debatt och nästa debatt är inplanerad " . $nextdebate . ".</p>";
+
+
+
+}
+
 
 while($row = mysqli_fetch_array($result))
   {
@@ -37,7 +52,7 @@ while($row = mysqli_fetch_array($result))
   $commentCount = $commentCount[0];
 
 
-  echo "<div dok_id=\"". utf8_encode($row['dok_id']) . "\" dbid=\"". utf8_encode($row['index']) . "\" class=\"result\">";
+  echo "<div dok_id=\"". utf8_encode($row['dok_id']) . "\" dbid=\"". utf8_encode($row['index']) . "\" decisionid=\"" . $row['decision_id'] . "\" class=\"result\">";
   echo "<div class=\"resultheader\">";
   echo "<p>" . htmlspecialchars(utf8_encode($row['titel'])) . "</p>";
   echo "</div>";
@@ -73,11 +88,12 @@ while($row = mysqli_fetch_array($result))
 
   if (utf8_encode($row['beslut']) == 'planerat' )
   {
-    echo "<p>Beslut är inplanerat för debatt den " . $row['beslutsdatum'] . "</p>";
+    echo "<p>Beslut är inplanerat för debatt " . $row['beslutsdatum'] . "</p>";
   }
   else
   {
    echo "<p>" . utf8_encode($row['decisionDescription']) . "</p> ";
+
   }
 
 
@@ -138,6 +154,35 @@ while($row = mysqli_fetch_array($result))
   echo "</div>";
   echo "<div class=\"divisor\"></div>";
   }
+
+  if ($happened == 'planerat') {
+
+  $result2 = mysqli_query($db,"SELECT * FROM `reports` WHERE beslut = 'planerat' AND description = '' AND beslutsdatum > CURDATE() ORDER BY beslutsdatum, titel ASC");
+
+  echo "<br><br>";
+  echo "<p class='startpagetitle'>";
+  echo "ICKE PUBLICERADE";
+  echo "</p>";
+
+  while($row = mysqli_fetch_array($result2)) {
+
+    $dater = substr($row['beslutsdatum'], 0, -9);
+
+    echo "<div dok_id=\"". utf8_encode($row['dok_id']) . "\" dbid=\"". utf8_encode($row['index']) . "\" class=\"preview\">";
+    echo "<div class=\"resultheader\">";
+    echo "<p>" . htmlspecialchars(utf8_encode($row['titel'])) . "</p>";
+    echo "</div>";
+    echo "<div class=\"resultbody\">";
+    echo "<div class=\"resultbodytext\">";
+    echo "<p>" . $dater . "</p>";
+    echo "</div>";
+    echo "</div>";
+    echo "</div>";
+    echo "<div class=\"divisor smallerdivi\"></div>";
+
+  }
+
+}
 
 mysqli_close($db);
 ?>

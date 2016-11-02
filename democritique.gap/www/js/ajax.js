@@ -1,22 +1,62 @@
 function getPosts(type, sorting, pageCount) {
 
-  $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchReports.php',{'page': pageCount, 'type': type, 'sorting': sorting}, function(data) { //ajax command
+  $('.load-bar').show();
 
+
+  $('.result').last().removeClass('zigzag');
+
+
+
+  $.post('http://harryboy.hemsida.eu/php/fetchReports.php',{'page': pageCount, 'type': type, 'sorting': sorting}, function(data) { //ajax command
+
+      $(".noresultsfound").remove();
       $("#results").append(data); //append data received from server
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+
+        $('.result:first-child').css('margin-top','18px');
+
+      }
       colorizeResults();
       clickHandlers();
 
       $("#results").show();
 
-      $('.result').fadeIn();
+      $('.result').last().addClass('zigzag');
 
-      $('.divisor').each(function(index) {
+      $('.result').each(function(){
 
-        $(this).stop().delay(index*250).animate({
-            'width': '100%'
-          }, 250);
+        if(!$(this).hasClass('animatedresult')) {
+
+          $(this).addClass('newresult');
+
+        }
 
       });
+
+
+
+      $('.newresult').each(function(index){
+
+
+        $(this).css('opacity','0');
+        $(this).css('transform','scaleX(0.5)');
+
+        $(this).show();
+
+        $(this).delay(index*100).animate({transform: 'scaleXY(1)', opacity: '1'});
+
+
+        $(this).next().animate({
+              'transform': 'scaleX(20)'
+            }, 500);
+
+        $(this).removeClass('newresult');
+        $(this).addClass('animatedresult');
+
+      });
+
+
+
 
       $('.load-bar').hide();
 
@@ -26,23 +66,39 @@ function getPosts(type, sorting, pageCount) {
 
 function getNews(pageCount) {
 
-  $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchNews.php',{'page': pageCount}, function(data) { //ajax command
+  $('.load-bar').show();
+
+
+
+  $.post('http://harryboy.hemsida.eu/php/fetchNews.php',{'page': pageCount}, function(data) { //ajax command
 
       $("#results").append(data); //append data received from server
       colorizeResults();
       clickHandlers();
 
+      $('.result').each(function(){
+
+        var momentSubject = $(this).find('.moment').text();
+
+        momentSubject = moment(momentSubject, "YYYY-MM-DD HH:mm:ss").lang('sv').fromNow();
+
+        $(this).find('.moment').text(momentSubject);
+
+      });
+
+      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+
+        $('.result:first-child').css('margin-top','18px');
+
+      }
+
       $("#results").show();
 
       $('.result').stop().fadeIn();
 
-      $('.divisor').each(function(index) {
-
-        $(this).stop().delay(index*250).animate({
+      $('.divisor').animate({
             'width': '100%'
-          }, 250);
-
-      });
+          }, 1500);
 
       $('.load-bar').hide();
 
@@ -52,7 +108,9 @@ function getNews(pageCount) {
 
 function getStartPage() {
 
-  $.post('http://lingon.funkar.nu/sites/riksdagen/php/fetchStartPage.php', function(data) { //ajax command
+  $('.load-bar').show();
+
+  $.post('http://harryboy.hemsida.eu/php/fetchStartPage.php', function(data) { //ajax command
 
       $("#results").empty();
 
@@ -82,6 +140,12 @@ function getStartPage() {
 
         $(this).find('.resultheader').find('.reporttext').css('display', '-webkit-box').removeClass('reporttext').removeClass('commenthide').removeClass('timelinehide').addClass('newstext');
 
+        var momentSubject = $(this).find('.moment').text();
+
+        momentSubject = moment(momentSubject, "YYYY-MM-DD HH:mm:ss").lang('sv').fromNow();
+
+        $(this).find('.moment').text(momentSubject);
+
       });
 
       $('.startpagedecisions').find('.result').each(function(){
@@ -104,7 +168,7 @@ function getStartPage() {
 
       $.ajax({
       type: 'POST',
-      url: 'http://lingon.funkar.nu/sites/riksdagen/php/fetchGlobalVotesData.php',
+      url: 'http://harryboy.hemsida.eu/php/fetchGlobalVotesData.php',
       success: function (data) {
       lineChartData = data;
 
@@ -139,7 +203,7 @@ function getStartPage() {
                   borderDash: [],
                   borderDashOffset: 0.0,
                   borderJoinStyle: 'miter',
-                  pointBorderColor: "rgba(75,192,192,1)",
+                  pointBorderColor: "rgba(255,255,255,0.5)",
                   pointBackgroundColor: "#fff",
                   pointBorderWidth: 1,
                   pointHoverRadius: 5,
@@ -302,16 +366,19 @@ function getStartPage() {
                   pointHoverBorderWidth: 2,
                   pointRadius: 1,
                   pointHitRadius: 10,
-                  data: graphdata['KD'],
+                  data: graphdata['C'],
                   spanGaps: false,
               }
           ]
       };
 
+
+
             var myChart = new Chart(ctx, {
                 type: 'line',
                 data: chartdata,
                 options: {
+                    scaleLabel: 'procentuellt samtycke med befolkningen',
                     responsive: true,
                     maintainAspectRatio: false,
                     scales: {

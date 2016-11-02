@@ -15,7 +15,7 @@ if (substr($dok_id, 0, 4) == 'news') {
 
 $result = mysqli_query($db,$query);
 
-if ($row = mysqli_fetch_array($result)) {
+if (mysqli_num_rows($result)) {
     echo '0';
 }
 else {
@@ -74,7 +74,7 @@ else {
 
 	echo '1';
 
-	if ($row = mysqli_fetch_array($result)) {
+	if (mysqli_num_rows($result)) {
 
     if (substr($dok_id, 0, 4) == 'news') {
 
@@ -107,6 +107,7 @@ else {
   		WHERE id='$id'
 
   	  ");
+      echo '1';
 
     } else {
 

@@ -236,6 +236,8 @@ def getVotationData(links):
 
 		soup = BeautifulSoup(str(response))
 
+		rm = str(soup.rm.string)
+
 		for vote in soup.findAll('votering'):
 
 			try:
@@ -258,7 +260,7 @@ def getVotationData(links):
 
 			print "-------"
 
-			databaseConnector.insert_votes(unicode(dok_id, 'utf-8'),unicode(person_id, 'utf-8'),unicode(name, 'utf-8'),unicode(party, 'utf-8'),unicode(vote, 'utf-8'))
+			databaseConnector.insert_votes(unicode(dok_id, 'utf-8'),unicode(rm, 'utf-8'),unicode(person_id, 'utf-8'),unicode(name, 'utf-8'),unicode(party, 'utf-8'),unicode(vote, 'utf-8'))
 
 
 
@@ -541,7 +543,7 @@ def updateReports():
 	data = getBetData(links)
 
 	for item in data:
-		databaseConnector.insert_bet(*item)
+		databaseConnector.update_bet(*item)
 
 def getMissingDocRefers():
 
@@ -641,6 +643,117 @@ def fixMissingVotes():
 
 	data = getVotationData(links)
 
+def fixMissingDecisions():
+
+	dokidslist = databaseConnector.check_decisions_reports()
+
+	print len(dokidslist)
+
+	for dokid in dokidslist:
+
+		print dokid[0]
+		getDecision(dokid[0])
+
+
+
+def getDecision(dok_id):
+
+	b = mechanize.Browser()
+
+	try:
+		link = 'http://data.riksdagen.se/dokumentstatus/' + dok_id.encode('utf-8') + '.html'
+	except UnicodeEncodeError:
+		print link
+		return
+
+	try:
+		response = b.open(link).read()
+		print "Opening link: " + link
+	except mechanize.HTTPError as e:
+		print 'Cannot open '+link
+	except urllib2.URLError as e:
+		print 'Cannot open '+link
+
+	try:
+		soup = BeautifulSoup(str(response))
+	except UnboundLocalError:
+		print 'Cannot open '+link
+		return
+
+	rm = str(soup.rm.string)
+
+	dok_id_inunique = str(soup.beteckning.string)
+
+	try:
+		urls = getVotations.get_riksdata(False, dok_id_inunique, "&doktyp=kam-vo", "&rm="+rm)
+	except AttributeError:
+		print 'error fucka'
+		return
+
+	soup = BeautifulSoup(str(urls))
+
+	dok_url = soup.findAll('h3')
+	soup = BeautifulSoup(str(dok_url))
+
+	for link in soup.findAll('a'):
+
+		url = link.get('href')
+
+		afterLastSlashOfURL = url.rsplit('/',1)[-1]
+
+		decisionID = afterLastSlashOfURL.rsplit('.',1)[0]
+
+		databaseConnector.insert_decision(dok_id, decisionID)
+
+def getBetData2():
+
+	dokidslist = databaseConnector.check_reports2()
+
+	print len(dokidslist)
+
+	for dokid in dokidslist:
+
+		print dokid[0]
+
+		b = mechanize.Browser()
+
+		try:
+			link = 'http://data.riksdagen.se/dokumentstatus/' + dokid[0].encode('utf-8') + '.html'
+		except UnicodeEncodeError:
+			print link
+
+		try:
+			response = b.open(link).read()
+			print "Opening link: " + link
+		except mechanize.HTTPError as e:
+			print 'Cannot open'+link
+		except urllib2.URLError as e:
+			print 'Cannot open '+link
+
+		soup = BeautifulSoup(str(response))
+
+		try:
+			for entry in soup.findAll('uppgift'):
+
+				if (entry.kod.string == 'utsknotis'):
+					print 'testing'
+
+					print entry.findAll('text')[0].string
+					description = entry.findAll('text')[0].string
+					description = str(BeautifulSoup(description, convertEntities=BeautifulSoup.HTML_ENTITIES))
+
+					data = []
+
+					data.append(dokid[0])
+					data.append(unicode(description, 'utf-8'))
+
+					databaseConnector.insert_description(data[0], data[1])
+
+		except IndexError:
+			print 'wtf';
+
+		except AttributeError:
+			print 'wtf';
 
 
 
@@ -652,19 +765,21 @@ def fixMissingVotes():
 # getVotationData(links)
 
 
-# updateReports()
-#
-# links = getURLs('bet')
-# data = getBetData(links)
-#
-# for item in data:
-# 	databaseConnector.insert_bet(*item)
-#
+updateReports()
+
+links = getURLs('bet')
+data = getBetData(links)
+
+for item in data:
+	databaseConnector.insert_bet(*item)
+
 
 getMissingDocRefers()
 updatePropositions()
 updateMotions()
 fixMissingVotes()
+fixMissingDecisions()
+getBetData2()
 
 
 

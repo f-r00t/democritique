@@ -147,12 +147,16 @@ function onBackKeyDown($commenthideHeights)
          headerHeight = parseInt(headerHeight);
          height = height - headerHeight;
 
+     $('.activatedresult').addClass('animated');
+
      $('.activatedresult').stop().animate({
          transform: translationBack,
          height: originalHeight,
          opacity: 0
        }, 800, function() {
          // Animation complete.
+
+         $('.activatedresult').removeClass('animated');
 
          // Re-size div
 
@@ -269,9 +273,13 @@ function menuButton() {
 
       $('#menu').stop().fadeIn();
 
-      $('#menu').stop().animate({
-          left: '0'
-        }, 500);
+      $('#menu').addClass('animated');
+
+      $( "#menu" ).stop().animate({
+        left: '0'
+      }, 500, function() {
+        $('#menu').removeClass('animated');
+      });
 
   });
 
@@ -926,11 +934,14 @@ function clickHandlers() { // this binds the click function on results
                         translation = "translateY(-"+toBeScrolled+")";
                         translationBack = "+=translateY("+toBeScrolled+")";
 
+                        $('.activatedresult').addClass('animated');
+
                         $('.activatedresult').stop().animate({
                             transform: translation
                           }, 800, function() {
                             // Animation complete.
                             $('.removeNow').remove();
+                            $('.activatedresult').removeClass('animated');
                         });
 
                         // Add extra class for this results specific comments

@@ -3,13 +3,13 @@ document.addEventListener("deviceready", function(){
     StatusBar.styleLightContent();
 
 
-    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-
-      $('#header').css('border-top','20px solid black');
-      $('#results').css('padding-top','80px');
-      $('#menu').css('padding-top','20px');
-
-    }
+    // if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+    //
+    //   $('#header').css('border-top','20px solid black');
+    //   $('#results').css('padding-top','80px');
+    //   $('#menu').css('padding-top','20px');
+    // 
+    // }
 
     function handleOpenURL(url) {
       $('#results').before('<p>you opened the app from the following url:'+url);

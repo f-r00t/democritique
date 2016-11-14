@@ -1071,5 +1071,12 @@ h1 {
     margin-left: 50%; }
     .activatedresult .newsthumb, .removeNow .newsthumb {
       width: 100%; } }
+.animated {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform: translate3d(0px, 0px, 0px); }
 
 /*# sourceMappingURL=index.css.map */

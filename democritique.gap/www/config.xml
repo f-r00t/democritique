@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "se.lingonbyran.democritique"
-        version   = "1.0.78">
+        version   = "1.0.81">
 
     <name>Democritique</name>
 
@@ -72,7 +72,7 @@
     <plugin name="org.apache.cordova.splashscreen" />
     <plugin name="org.apache.cordova.vibration" />
     <plugin name="org.apache.cordova.statusbar" />
-    <plugin name="nl.x-services.plugins.launchmyapp" spec="3.2.0" source="npm">
+    <plugin name="cordova-plugin-urlhandler" source="npm">
       <param name="URL_SCHEME" value="democritique" />
     </plugin>
 

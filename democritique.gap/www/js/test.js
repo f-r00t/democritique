@@ -8,11 +8,22 @@ document.addEventListener("deviceready", function(){
     //   $('#header').css('border-top','20px solid black');
     //   $('#results').css('padding-top','80px');
     //   $('#menu').css('padding-top','20px');
-    // 
+    //
     // }
 
     function handleOpenURL(url) {
-      $('#results').before('<p>you opened the app from the following url:'+url);
+      setTimeout(function() {
+        alert("received url: " + url);
+      }, 0);
+
+      urlSplit = url.split('//');
+      fullReq = urlSplit[1].split('=');
+      functionReq = fullReq[0];
+      targetReq = fullReq[1];
+
+      alert(targetReq);
+
+      openArticle(targetReq)
     }
 
     // Show spinner

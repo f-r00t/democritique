@@ -31,6 +31,21 @@
         <title>Hello World</title>
         <script type="text/javascript">
 
+        function handleOpenURL(url) {
+          setTimeout(function() {
+            alert("received url: " + url);
+          }, 0);
+
+          urlSplit = url.split('//');
+          fullReq = urlSplit[1].split('=');
+          functionReq = fullReq[0];
+          targetReq = fullReq[1];
+
+          alert(targetReq);
+
+          openArticle(targetReq)
+        }
+
         var uistate = 'home';
         var prevuistate = 'home';
         var $commenthideHeights = [];
@@ -81,6 +96,90 @@
 
 
         </div>
+
+        <!-- <div id="articleTemplate" style="display:none">
+
+          <div dok_id="" dbid="" decisionid="" class="result">
+          <div class="resultheader">
+          <p class="articletitle"></p>
+          </div>
+          <div class="resultbody">
+          <div class="resultbodytext">
+          <p class="articlebodytext"></p>
+          </div>
+
+          <div class="timeline commenthide">
+          <div class="timelineitem first"><span>1</span><p>Förslag</p></div>
+          <div class="timelineitem second active"><span>2</span><p>Beredning</p></div>
+          <div class="timelineitem third"><span>3</span><p>Debatt</p></div>
+          <div class="timelineitem fourth"><span>4</span><p>Beslut</p></div>
+          </div>
+
+          <div class="reporttext commenthide timelinehide"></div>
+
+          <div class="debatetext commenthide timelinehide"></div>
+
+          <div class="decision commenthide timelinehide">
+          </div>
+
+          <div class=\"resultbuttons\">
+
+          <div class=\"buttontable\">
+          <img class=\"resultbutton\" src=\"img/comments.svg\" />
+          <p class =\"buttontext commentcount\"></p>
+          </div>
+
+          <div class=\"buttontable\">
+          <img class=\"resultbutton downvote\" src=\"img/downvote.svg\" />
+          <p class =\"buttontext downvotecount\"></p>
+          </div>
+
+          <div class="buttontable">
+          <img class="resultbutton upvote" src=\"img/upvote.svg\" />
+          <p class ="buttontext upvotecount"></p>
+          </div>
+
+          </div>
+
+          <div class=\"activatedresultbuttons commenthide\">
+
+          <a href=\"#\" onclick="window.open('http://docs.google.com/viewer?url=', '_blank', 'location=no');">
+          <div class=\"activatedbuttontable\" id=\"doclink\">
+          <img class=\"resultbutton\" src="img/download.svg" />
+          <p class ="buttontext">H&auml;mta<br>dokument</p>
+          </div>
+          </a>
+
+          <div id=\"commentlink\" class=\"activatedbuttontable\">
+          <img class=\"resultbutton\" src=\"img/comments.svg\" />
+          <p class ="buttontext"></p>
+          </div>
+
+          <div class="activatedbuttontable">
+          <img class="resultbutton downvote" src="img/downvote.svg" />
+          <p class ="buttontext"></p>
+          </div>"
+
+          <div class="activatedbuttontable">
+          <img class="activatedresultbutton upvote" src="img/upvote.svg" />
+          <p class ="buttontext"></p>
+          </div>
+
+          </div>
+
+
+
+          <div class="comdiv"></div>
+
+          <div class="comments commenthide"></div>
+
+          </div>
+          </div>"
+          <div class=\"divisor\"></div>
+
+        </div> -->
+
+
         <div id="postcomment" class="comments" style="display:none;">
 
 
@@ -104,6 +203,7 @@
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/test.js"></script>
+        <script type="text/javascript" src="js/openArticle.js"></script>
         <script type="text/javascript" src="js/clickHandlers.js"></script>
         <script type="text/javascript" src="js/users.js"></script>
         <script type="text/javascript" src="js/ajax.js"></script>

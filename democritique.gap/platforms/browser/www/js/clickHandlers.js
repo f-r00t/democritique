@@ -92,7 +92,7 @@ function colorizeResults() {
 
 function closeMenu() {
 
-  $('#menu').stop().stop().animate({
+  $('#menu').stop().stop().velocity({
       left: '-55%'
     }, 100);
 
@@ -115,7 +115,7 @@ function onBackKeyDown($commenthideHeights)
 
          if ($('body').width()>=768) { // IF TABLET
 
-           $('#results').animate({
+           $('#results').velocity({
 
                width: '100%'
 
@@ -127,18 +127,18 @@ function onBackKeyDown($commenthideHeights)
          $('#'+dok_id).fadeOut();
 
 
-         $('.activatedresult').find(".comdiv").stop().animate({
+         $('.activatedresult').find(".comdiv").stop().velocity({
 
              width: '0%'
 
          }, 800);
 
-         $('#results').fadeIn();
          window.scrollTo(0,scrollingDist);
 
 
          $('.activatedresult').find(".activatedresultbuttons").fadeOut();
          $('.activatedresult').find(".timeline").fadeOut();
+         $('#results').fadeIn();
 
      // Div size variables for resizing
 
@@ -147,12 +147,13 @@ function onBackKeyDown($commenthideHeights)
          headerHeight = parseInt(headerHeight);
          height = height - headerHeight;
 
-     $('.activatedresult').stop().animate({
-         transform: translationBack,
-         height: originalHeight,
-         opacity: 0
-       }, 800, function() {
+         $('.activatedresult').stop().animate({
+            top: scrollDist,
+            height: originalHeight
+          }, 800, function() {
          // Animation complete.
+
+         $('.activatedresult').removeClass('animated');
 
          // Re-size div
 
@@ -193,9 +194,55 @@ function onBackKeyDown($commenthideHeights)
 
      });
          break;
-     case "writing":
+     case "openedResult":
+
+         if ($('body').width()>=768) { // IF TABLET
+
+           $('#results').velocity({
+
+               width: '100%'
+
+           }, 500);
+
+         }
 
          $('#results').fadeIn();
+
+         $('.openedResult').fadeOut(function(){
+           $('.openedResult').remove();
+         });
+
+
+         $("#closebutton").fadeOut(); // No more escape routes!
+
+
+         clickHandlers()
+         break;
+     case "writing":
+
+     // Reverse for tablet writing
+
+     if ($('body').width()>=768) { // IF TABLET
+
+       $('.activepostcomment').toggleClass('tabletpostcomment');
+
+       $('.activatedresult').velocity({
+
+           width: '50%',
+           marginLeft: '50%'
+
+       }, 500);
+
+      //  $('.activepostcomment').height('100%'); MAYBE
+
+       $('.activatedresult').toggleClass('fatborderbottom');
+
+       $('#results').fadeIn();
+       $('#results').css('opacity','1');
+
+     }
+
+        $('.activepostcomment').toggleClass('activepostcomment');
 
 
          var $ij = 0;
@@ -214,7 +261,7 @@ function onBackKeyDown($commenthideHeights)
          $('.activatedresult').find('.commenthide').each(function() {
 
 
-           $(this).stop().animate({
+           $(this).stop().velocity({
              'height': $commenthideHeights[$ij],
              'opacity':'1'
            },500);
@@ -269,9 +316,13 @@ function menuButton() {
 
       $('#menu').stop().fadeIn();
 
-      $('#menu').stop().animate({
-          left: '0'
-        }, 500);
+      $('#menu').addClass('animated');
+
+      $( "#menu" ).stop().velocity({
+        left: '0'
+      }, 500, function() {
+        $('#menu').removeClass('animated');
+      });
 
   });
 
@@ -394,7 +445,7 @@ function clickHandlers() { // this binds the click function on results
         $('.votemeteramount').each(function(index, value) {
 
           var tempwith = $(this).attr('amount');
-          $(this).stop().animate({
+          $(this).stop().velocity({
               'width': tempwith+'%'
             }, 800);
         });
@@ -405,7 +456,7 @@ function clickHandlers() { // this binds the click function on results
 
     $('.load-bar').show();
     $('#profile').fadeIn();
-    $('#profile').stop().animate({
+    $('#profile').stop().velocity({
         'margin-left': '0'
       }, 800);
 
@@ -550,14 +601,14 @@ function clickHandlers() { // this binds the click function on results
           $('.votemeteramount').each(function(index, value) {
 
             var tempwith = $(this).attr('amount');
-            $(this).stop().animate({
+            $(this).stop().velocity({
                 'width': tempwith+'%'
               }, 800);
           });
 
       });
 
-      $('#compass').stop().animate({
+      $('#compass').stop().velocity({
           'margin-left': '0'
         }, 800);
 
@@ -571,7 +622,7 @@ function clickHandlers() { // this binds the click function on results
 
       }
 
-        $('#compass').stop().animate({
+        $('#compass').stop().velocity({
             'margin-left': '-110%'
           }, 800);
 
@@ -619,7 +670,7 @@ function clickHandlers() { // this binds the click function on results
 
                         if ($('body').width()>=768) { // IF TABLET
 
-                          $('#results').animate({
+                          $('#results').velocity({
 
                               width: '50%'
 
@@ -631,11 +682,6 @@ function clickHandlers() { // this binds the click function on results
 
                         }
 
-                        if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-
-                          $('.activatedresult').css('margin-top','20px');
-
-                        }
                          // Add extra class for clicked div
 
                         // $(this).addClass('activatedresult');
@@ -803,7 +849,7 @@ function clickHandlers() { // this binds the click function on results
                                       border: "none"
 
                                     });
-                                    $('#header').animate({
+                                    $('#header').velocity({
 
                                         top: '-20%'
 
@@ -813,7 +859,7 @@ function clickHandlers() { // this binds the click function on results
 
                                     $( ".videodome" ).attr('style','');
 
-                                    $('#header').animate({
+                                    $('#header').velocity({
 
                                         top: '0'
 
@@ -821,7 +867,7 @@ function clickHandlers() { // this binds the click function on results
                             default:
                                     $( ".videodome" ).attr('style','');
 
-                                    $('#header').animate({
+                                    $('#header').velocity({
 
                                         top: '0'
 
@@ -889,7 +935,7 @@ function clickHandlers() { // this binds the click function on results
 
                         $('.activatedresult').find(".comdiv").fadeIn();
 
-                        $('.activatedresult').find(".comdiv").stop().animate({
+                        $('.activatedresult').find(".comdiv").stop().velocity({
 
                             width: '100%'
 
@@ -923,14 +969,10 @@ function clickHandlers() { // this binds the click function on results
                         });
 
                         toBeScrolled = (scrollDist-48);
-                        translation = "translateY(-"+toBeScrolled+")";
-                        translationBack = "+=translateY("+toBeScrolled+")";
-
-                        $('.activatedresult').stop().animate({
-                            transform: translation
+                        $('.activatedresult').stop().velocity({
+                            top: "48px"
                           }, 800, function() {
                             // Animation complete.
-                            $('.removeNow').remove();
                         });
 
                         // Add extra class for this results specific comments
@@ -946,13 +988,17 @@ function clickHandlers() { // this binds the click function on results
                         $('.activatedresult').find("#commentlink").unbind('click');
                         $('.activatedresult').find("#commentlink").click(function() {
 
+                            $('.activepostcomment').find('#commentfield').focus();
 
-                            // Comment writing mode')
 
-                            $('#results').css('overflow-y','hidden');
-                            $('#results').css('height','100%');
+                            // Comment writing mode
+
+                            // Counter for keeping track of hidden ui elements
 
                             var $j = 0;
+
+                            // Iterates through elements with the 'commenthide' class,
+                            // stores them in the 'commenthideHeights' variable and finally adds one to $j
 
                             $('.activatedresult').find('.commenthide').each(function() {
 
@@ -961,21 +1007,51 @@ function clickHandlers() { // this binds the click function on results
 
                           });
 
-                            $('.activatedresult').find('.commenthide').stop().animate({
+                            // Animation for hiding elements with the 'commenthide' class
+
+                            $('.activatedresult').find('.commenthide').stop().velocity({
                               'height':'0',
                               'opacity':'0'
                             },500);
 
                             // $('.activatedresult').find('reporttext').delay(100).fadeOut();
                             $('.activatedresult').find('.commenthide').delay(500).fadeOut();
+
+
                             $uistate = "writing";
 
 
                             // Clone and insert comment form
                             $('.activatedresult').find("#postcomment").remove();
                             commentTarget = $('.activatedresult').find('.comdiv');
-                            $("#postcomment").clone().insertAfter(commentTarget);
+                            $("#postcomment").clone().insertAfter(commentTarget).addClass('activepostcomment');
                             $('.activatedresult').find("#postcomment").fadeIn();
+
+                            // Tablet writing mode
+
+                            if ($('body').width()>=768) { // IF TABLET
+
+                              $('.activepostcomment').toggleClass('tabletpostcomment');
+
+                              // $('.activatedresult').toggleClass('tablewritingresult');
+                              // $('.activatedresult').toggleClass('activatedresult');
+
+
+
+                              $('.activatedresult').velocity({
+
+                                  width: '100%',
+                                  marginLeft: '0'
+
+                              }, 500);
+
+                              $('.activepostcomment').height('100%');
+                              $('.activatedresult').addClass('fatborderbottom');
+
+                              $('#results').fadeOut();
+                              $('#results').css('opacity','0');
+
+                            }
 
                             // Submit function of comment form
 
@@ -987,13 +1063,20 @@ function clickHandlers() { // this binds the click function on results
 
                                 commentText = $(this).find("#commentfield").val(); // Get the comment text
 
+                                commentText = commentText.replace(/&/g , "&amp;");
+                                commentText = commentText.replace(/</g , "&lt;");
+                                commentText = commentText.replace(/>/g , "&gt;");
+                                commentText = commentText.replace(/"/g , "&quot;");
+                                commentText = commentText.replace(/'/g , "&#x27;");
+                                commentText = commentText.replace(/\//g , "&#x2F;");
+
                                 if (/\S/.test(commentText)) { // string is not empty and not just whitespace
 
 
                                     $('.activatedresult').find('#postcomment').fadeOut(); // Away with the form!
                                     $('.activatedresult').find('#postcomment').remove();
 
-                                    $('html, body').stop().animate({ // UI-hotfix for scrolling back after comment has been sent
+                                    $('html, body').stop().velocity({ // UI-hotfix for scrolling back after comment has been sent
                                         scrollTop: offset
                                     }, 800);
 

@@ -1,6 +1,6 @@
 document.addEventListener("deviceready", function(){
 
-    StatusBar.styleLightContent();
+    // StatusBar.styleLightContent();
 
 
     // if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {

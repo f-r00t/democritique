@@ -1397,10 +1397,7 @@ color: rgba(0,0,0,0.7);
 @media screen and (min-width: 768px) {
 
   #headerlogo {
-    width: 25vw;
-    margin-left: 37.5vw;
-    max-height: 48px;
-    background-size: contain;
+    background-size: 25vw;
 
 
   }

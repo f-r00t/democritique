@@ -35,7 +35,6 @@ body {
   background-color: #303030;
   background-attachment: fixed;
   font-family: 'Varela Round', sans-serif;
-  font-size: 12px;
   height: 100%;
   margin: 0px;
   padding: 0px;
@@ -71,7 +70,6 @@ body {
     /* offset vertical: half of image height */
     /* offset horizontal: half of image width and text area width */ } }
 h1 {
-  font-size: 24px;
   font-weight: normal;
   margin: 0px;
   overflow: visible;
@@ -82,7 +80,6 @@ h1 {
   border-radius: 4px;
   -webkit-border-radius: 4px;
   color: #FFFFFF;
-  font-size: 12px;
   margin: 0px 30px;
   padding: 2px 0px; }
 
@@ -130,7 +127,7 @@ h1 {
   height: 100%;
   background: url(../img/logo.svg) no-repeat center center;
   background-size: 50%;
-  opacity: 0.3; }
+  opacity: 0.8; }
 
 #karma {
   display: none; }
@@ -196,7 +193,6 @@ h1 {
 
 .votemeteramount {
   color: #303030;
-  font-size: 24px;
   background-color: rgba(255, 255, 255, 0.8);
   margin: 2px;
   text-align: center; }
@@ -214,7 +210,7 @@ h1 {
   z-index: 10;
   color: rgba(255, 255, 255, 0.8); }
 
-.result {
+.result, .openedResult {
   display: none;
   padding: 0px;
   margin: 0px;
@@ -227,7 +223,6 @@ h1 {
   margin: 0px 0 -10px 0;
   padding: 12px 0 12px 0;
   color: white;
-  font-size: 14px;
   /*border-radius: 20px 20px 0 0;*/
   max-width: 100%; }
   .resultheader p {
@@ -242,9 +237,9 @@ h1 {
   max-width: 100%;
   overflow-x: hidden; }
 
-.activatedresult .resultbody, .removeNow .resultbody {
+.activatedresult .resultbody, .removeNow .resultbody, .openedResult .resultbody {
   overflow-y: scroll; }
-.activatedresult .newstext, .removeNow .newstext {
+.activatedresult .newstext, .removeNow .newstext, .openedResult .newstext {
   position: absolute;
   top: -555%;
   visibility: hidden; }
@@ -257,7 +252,6 @@ h1 {
 
 .resultbodytext {
   display: inline-block;
-  font-size: 12px;
   vertical-align: top;
   width: 50%; }
 
@@ -359,14 +353,18 @@ h1 {
   padding-bottom: 30px; }
 
 #postcomment {
+  height: 100%;
   color: rgba(255, 255, 255, 0.38);
   font-family: 'Varela Round', sans-serif;
-  font-size: 18px; }
+  transition: background-color 500ms;
+  -webkit-transition: background-color 500ms; }
+
+.tabletpostcomment {
+  background-color: #171717; }
 
 #commentfield {
   margin-top: 10%;
   font-family: 'Varela Round', sans-serif;
-  font-size: 18px;
   width: 90%;
   margin-left: 5%;
   height: 50%;
@@ -381,7 +379,6 @@ h1 {
   width: 80%;
   color: rgba(255, 255, 255, 0.8);
   font-family: 'Varela Round', sans-serif;
-  font-size: 16px;
   border-radius: 10px;
   border: 3px solid white;
   margin-left: 10%; }
@@ -401,7 +398,6 @@ h1 {
   color: rgba(255, 255, 255, 0.9); }
 
 .comment {
-  font-size: 12px;
   color: rgba(255, 255, 255, 0.9);
   width: 100%;
   border-left: 5px solid #76FF03;
@@ -568,7 +564,6 @@ h1 {
     border-radius: 50%;
     border: 2px solid rgba(255, 255, 255, 0.8);
     background-color: #424242;
-    font-size: 12px;
     margin-left: 33px; }
   .timeline p {
     text-align: center;
@@ -734,8 +729,7 @@ h1 {
     margin-top: -20px; }
 
 .domain, .moment {
-  opacity: 0.5;
-  font-size: 10px; }
+  opacity: 0.5; }
 
 .newsthumb {
   opacity: 1;
@@ -830,7 +824,6 @@ h1 {
 
 .menuitem {
   text-align: left;
-  font-size: 12px;
   color: rgba(255, 255, 255, 0.95);
   border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
   padding-bottom: 15px;
@@ -911,7 +904,6 @@ h1 {
     padding: 2px; }
   .expander p {
     display: inline-block;
-    font-size: 12px;
     line-height: 22px;
     vertical-align: middle;
     padding: 0; }
@@ -937,7 +929,6 @@ h1 {
     margin-left: 0;
     display: inline-block;
     margin-top: 0;
-    font-size: 11px;
     vertical-align: top;
     padding: 0; }
   .startpagenews .divisor {
@@ -948,7 +939,6 @@ h1 {
     margin-left: 25%; }
 
 .newstext {
-  font-size: 10px;
   margin-left: 4%;
   margin-top: 1%;
   color: rgba(255, 255, 255, 0.3);
@@ -982,7 +972,6 @@ h1 {
     margin-left: 0;
     display: inline-block;
     margin-top: 0;
-    font-size: 11px;
     vertical-align: top;
     padding: 0; }
   .startpagedecisions .divisor {
@@ -995,17 +984,14 @@ h1 {
     margin-left: 0; }
 
 .startpagetitle {
-  font-size: 10px;
   margin-left: 2%;
   margin-bottom: 1%;
   font-family: sans-serif;
   font-weight: bold;
-  font-size: 10px;
   color: rgba(0, 0, 0, 0.7); }
 
 .noresultsfound {
   font-family: 'Varela Round', sans-serif;
-  font-size: 15px;
   text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
   padding-left: 5%;
   padding-right: 5%;
@@ -1021,13 +1007,11 @@ h1 {
     width: 100%;
     margin-left: 0;
     margin-top: 0;
-    font-size: 11px;
     vertical-align: top;
     padding: 0;
     padding-bottom: 10px;
     opacity: 0.5; }
   .preview .resultbodytext {
-    font-size: 9px;
     opacity: 0.5; }
 
 .smallerdivi {
@@ -1039,12 +1023,47 @@ h1 {
   -webkit-mask-repeat: repeat-x;
   -webkit-mask-size: 100% 100%, 30px 30px, 30px 30px; }
 
+.animated {
+  -webkit-transform: translateZ(0);
+  -moz-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  -o-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-transform: translate3d(0px, 0px, 0px); }
+
+.visible {
+  display: inline-block; }
+
+.topmargin {
+  margin-top: 25px; }
+
+.fullheight {
+  height: 100%; }
+
+.fullwidth {
+  width: 100%; }
+
+.maxwidth48 {
+  max-width: 48px; }
+
+.openedResult {
+  height: 100vh;
+  position: absolute;
+  top: 24px;
+  left: 2px; }
+
+.fatborderbottom {
+  box-shadow: inset 0px -100px 0px 0px #171717; }
+
 @media screen and (min-width: 768px) {
   #headerlogo {
-    background-size: 25%; }
+    width: 25vw;
+    margin-left: 37.5vw;
+    max-height: 48px;
+    background-size: contain; }
 
   #closebutton {
-    left: 94%; }
+    left: 94vw; }
 
   .newsitem .resultbuttons {
     width: 90%; }
@@ -1052,10 +1071,10 @@ h1 {
       width: 30%; }
 
   .startpagetitle {
-    font-size: 12px; }
+    font-size: 2vw; }
 
   .resultheader {
-    font-size: 12px; }
+    font-size: 2vw; }
 
   .startpagenews {
     padding-bottom: 2%; }
@@ -1068,15 +1087,121 @@ h1 {
 
   .activatedresult, .removeNow {
     width: 50%;
-    margin-left: 50%; }
+    margin-left: 50%;
+    transition: box-shadow 1s; }
     .activatedresult .newsthumb, .removeNow .newsthumb {
-      width: 100%; } }
-.animated {
-  -webkit-transform: translateZ(0);
-  -moz-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  -o-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-transform: translate3d(0px, 0px, 0px); }
+      width: 100%; }
+
+  body {
+    font-size: 1.8vw; }
+
+  h1 {
+    font-size: 2.6vw; }
+
+  .votemeteramount {
+    font-size: 2.6vw; }
+
+  .resultheader {
+    font-size: 2.2vw; }
+
+  .resultbodytext {
+    font-size: 1.6vw; }
+
+  #postcomment {
+    font-size: 2.2vw; }
+
+  #commentfield {
+    font-size: 2.2vw; }
+
+  #postcommentbutton {
+    font-size: 2vw; }
+
+  .comment {
+    font-size: 1.6vw; }
+
+  .timeline span {
+    font-size: 1.6vw; }
+
+  .domain, .moment {
+    font-size: 1.6vw; }
+
+  .menuitem {
+    font-size: 1.6vw; }
+
+  .expander p {
+    font-size: 1.6vw; }
+
+  .resultheader {
+    font-size: 1.8vw; }
+
+  .newstext {
+    font-size: 1.6vw; }
+
+  .startpagetitle {
+    font-size: 1.8vw; }
+
+  .noresultsfound {
+    font-size: 2.1vw; }
+
+  .resultbodytext {
+    font-size: 1.3vw; }
+
+  .resultbuttons {
+    width: 20vw;
+    margin-left: 20vw; } }
+@media screen and (max-width: 767px) {
+  body {
+    font-size: 12px; }
+
+  h1 {
+    font-size: 24px; }
+
+  .votemeteramount {
+    font-size: 24px; }
+
+  .resultheader {
+    font-size: 14px; }
+
+  .resultbodytext {
+    font-size: 12px; }
+
+  #postcomment {
+    font-size: 18px; }
+
+  #commentfield {
+    font-size: 18px; }
+
+  #postcommentbutton {
+    font-size: 16px; }
+
+  .comment {
+    font-size: 12px; }
+
+  .timeline span {
+    font-size: 12px; }
+
+  .domain, .moment {
+    font-size: 10px; }
+
+  .menuitem {
+    font-size: 12px; }
+
+  expander p {
+    font-size: 12px; }
+
+  .newstext {
+    font-size: 10px; }
+
+  .resultheader {
+    font-size: 11px; }
+
+  .startpagetitle {
+    font-size: 10px; }
+
+  .noresultsfound {
+    font-size: 15px; }
+
+  .resultbodytext {
+    font-size: 9px; } }
 
 /*# sourceMappingURL=index.css.map */

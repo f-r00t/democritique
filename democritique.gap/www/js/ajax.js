@@ -68,11 +68,21 @@ function getPost(dok_id) {
 
       $('#bodyid').append(data);
 
+      $('.openedResult').addClass('activatedresult');
+
+
       colorizeResults();
       clickHandlers();
 
+      colorizeComments()
+      commentButtons()
+
 
       $('.load-bar').hide();
+
+      openArticle()
+
+      $uistate = "openedResult";
 
   });
 
@@ -104,7 +114,7 @@ function getNews(pageCount) {
 
       $('.result').stop().fadeIn();
 
-      $('.divisor').animate({
+      $('.divisor').velocity({
             'width': '100%'
           }, 1500);
 

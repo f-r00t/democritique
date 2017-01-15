@@ -11,11 +11,7 @@ function getPosts(type, sorting, pageCount) {
 
       $(".noresultsfound").remove();
       $("#results").append(data); //append data received from server
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
 
-        $('.result:first-child').css('margin-top','18px');
-
-      }
       colorizeResults();
       clickHandlers();
 
@@ -64,6 +60,34 @@ function getPosts(type, sorting, pageCount) {
 
 }
 
+function getPost(dok_id) {
+
+  $('.load-bar').show();
+
+  $.post('http://harryboy.hemsida.eu/php/fetchReport.php',{'dok_id': dok_id}, function(data) { //ajax command
+
+      $('#bodyid').append(data);
+
+      $('.openedResult').addClass('activatedresult');
+
+
+      colorizeResults();
+      clickHandlers();
+
+      colorizeComments()
+      commentButtons()
+
+
+      $('.load-bar').hide();
+
+      openArticle()
+
+      $uistate = "openedResult";
+
+  });
+
+}
+
 function getNews(pageCount) {
 
   $('.load-bar').show();
@@ -86,17 +110,11 @@ function getNews(pageCount) {
 
       });
 
-      if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
-
-        $('.result:first-child').css('margin-top','18px');
-
-      }
-
       $("#results").show();
 
       $('.result').stop().fadeIn();
 
-      $('.divisor').animate({
+      $('.divisor').velocity({
             'width': '100%'
           }, 1500);
 

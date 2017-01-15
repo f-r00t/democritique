@@ -1,14 +1,29 @@
 document.addEventListener("deviceready", function(){
 
-    StatusBar.styleLightContent();
+    // StatusBar.styleLightContent();
 
 
-    if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+    // if (navigator.userAgent.match(/(iPod|iPhone|iPad)/)) {
+    //
+    //   $('#header').css('border-top','20px solid black');
+    //   $('#results').css('padding-top','80px');
+    //   $('#menu').css('padding-top','20px');
+    //
+    // }
 
-      $('#header').css('border-top','20px solid black');
-      $('#results').css('padding-top','80px');
-      $('#menu').css('padding-top','20px');
+    function handleOpenURL(url) {
+      setTimeout(function() {
+        alert("received url: " + url);
+      }, 0);
 
+      urlSplit = url.split('//');
+      fullReq = urlSplit[1].split('=');
+      functionReq = fullReq[0];
+      targetReq = fullReq[1];
+
+      alert(targetReq);
+
+      openArticle(targetReq)
     }
 
     // Show spinner

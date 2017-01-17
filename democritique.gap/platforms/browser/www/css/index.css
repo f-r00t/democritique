@@ -1088,7 +1088,7 @@ h1 {
   .activatedresult, .removeNow {
     width: 50%;
     margin-left: 50%;
-    transition: box-shadow 1s; }
+    transition: box-shadow 1s, margin-left 1s; }
     .activatedresult .newsthumb, .removeNow .newsthumb {
       width: 100%; }
 
@@ -1203,5 +1203,7 @@ h1 {
 
   .resultbodytext {
     font-size: 9px; } }
+.nomargin {
+  margin-left: 0; }
 
 /*# sourceMappingURL=index.css.map */

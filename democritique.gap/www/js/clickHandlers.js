@@ -113,6 +113,8 @@ function onBackKeyDown($commenthideHeights)
          break;
      case "activeresult":
 
+        $('.removeNow').remove();
+
          if ($('body').width()>=768) { // IF TABLET
 
            $('#results').velocity({
@@ -121,7 +123,11 @@ function onBackKeyDown($commenthideHeights)
 
            }, 500);
 
-         }
+         } 
+
+         $('html, body').stop().velocity({
+               scrollTop: offset
+           }, 800);
 
          $('.activatedresult').find(".comdiv").fadeOut();
          $('#'+dok_id).fadeOut();
@@ -147,7 +153,7 @@ function onBackKeyDown($commenthideHeights)
          headerHeight = parseInt(headerHeight);
          height = height - headerHeight;
 
-         $('.activatedresult').stop().animate({
+         $('.activatedresult').stop().velocity({
             top: scrollDist,
             height: originalHeight
           }, 800, function() {
@@ -168,12 +174,7 @@ function onBackKeyDown($commenthideHeights)
          // document.getElementById('results').removeEventListener('touchmove', stopScroll, false);
          // document.getElementById('bodyid').removeEventListener('touchmove', stopScroll, false);
 
-         // Scroll back
 
-
-         // $('html, body').stop().animate({
-         //     scrollTop: offset
-         // }, 800);
 
          $('.activatedresult').removeAttr('style');
          $('.activatedresult').find('.resultbody').removeAttr('style');
@@ -226,10 +227,11 @@ function onBackKeyDown($commenthideHeights)
 
        $('.activepostcomment').toggleClass('tabletpostcomment');
 
+       $('.activatedresult').toggleClass('nomargin');
+
        $('.activatedresult').velocity({
 
-           width: '50%',
-           marginLeft: '50%'
+           width: '50%'
 
        }, 500);
 
@@ -643,6 +645,11 @@ function clickHandlers() { // this binds the click function on results
                     $(".result").unbind('click');
                     $(".result").click(function() { // When any result is clicked
 
+                        offset = $(this).offset().top;
+
+                        alert(offset);
+
+
                         clickHandlers()
 
 
@@ -947,7 +954,6 @@ function clickHandlers() { // this binds the click function on results
 
                         $('.activatedresult').find(".resultbody").css("height","90%");
 
-                        offset = $(this).offset().top;
                         offset = offset - headerHeight;
                         originalOffset = $('body').offset().top;
 
@@ -1037,16 +1043,16 @@ function clickHandlers() { // this binds the click function on results
                               // $('.activatedresult').toggleClass('activatedresult');
 
 
-
+                              $('.activatedresult').toggleClass('nomargin');
                               $('.activatedresult').velocity({
 
-                                  width: '100%',
-                                  marginLeft: '0'
+                                  width: '100%'
 
-                              }, 500);
+                              }, 1000);
 
                               $('.activepostcomment').height('100%');
                               $('.activatedresult').addClass('fatborderbottom');
+                              
 
                               $('#results').fadeOut();
                               $('#results').css('opacity','0');

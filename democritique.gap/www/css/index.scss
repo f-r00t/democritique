@@ -1451,7 +1451,7 @@ color: rgba(0,0,0,0.7);
                                  // that are being removed when a new result is
     width: 50%;                  // clicked
     margin-left: 50%;
-    transition: box-shadow 1s;
+    transition: box-shadow 1s, margin-left 1s;
     .newsthumb {
 
       width: 100%;
@@ -1637,4 +1637,8 @@ font-size: 10px;
   font-size: 9px;
 }
 
+}
+
+.nomargin {
+  margin-left: 0;
 }

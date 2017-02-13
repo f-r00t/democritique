@@ -54,11 +54,12 @@
         var uistate = 'home';
         var prevuistate = 'home';
         var $commenthideHeights = [];
+        var tablet = true;
 
-    $(document).bind("mobileinit", function() {
-        $.support.cors = true;
-        $.mobile.allowCrossDomainPages = true;
-    });
+    // $(document).bind("mobileinit", function() {
+    //     $.support.cors = true;
+    //     $.mobile.allowCrossDomainPages = true;
+    // });
 
 </script>
 
@@ -204,8 +205,9 @@
         <div id="profile" class="popupelement">
 
         </div>
+        <script src="https://www.gstatic.com/firebasejs/3.6.7/firebase.js"></script>
+        <script type="text/javascript" src="js/firebase-messages.js"></script>
         <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/html2canvas.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
         <script type="text/javascript" src="js/jquery.js"></script>
         <script type="text/javascript" src="js/velocity.js"></script>
@@ -219,19 +221,17 @@
         <script type="text/javascript" src="js/jquery.transform2d.js"></script>
         <script type="text/javascript" src="js/jquery.transform3d.js"></script>
 
-        <!--<script type="text/javascript" src="js/main.js"></script>
+        <!-- // <script type="text/javascript" src="js/main.js"></script> -->
 
 
 
         <script type="text/javascript">
-            app.initialize();
-            alert("wtf!");
-            $( document ).ready(function() {
 
-                $("#header").fadeOut();
+          if ( ( $(window).width() / $(window).height() ) < 0.61 ) { // IF TABLET
 
-            };
+          tablet = false;
+        }
 
-        </script> -->
+        </script> 
     </body>
 </html>

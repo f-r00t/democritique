@@ -115,7 +115,7 @@ function onBackKeyDown($commenthideHeights)
 
         $('.removeNow').remove();
 
-         if ($('body').width()>=768) { // IF TABLET
+         if (tablet) { // IF TABLET
 
            $('#results').velocity({
 
@@ -125,12 +125,14 @@ function onBackKeyDown($commenthideHeights)
 
          } 
 
-         $('html, body').stop().velocity({
-               scrollTop: offset
-           }, 800);
+         // $('body').stop().velocity({
+         //       scrollTop: offset
+         //   }, 800);
 
          $('.activatedresult').find(".comdiv").fadeOut();
          $('#'+dok_id).fadeOut();
+
+         $('html, body').stop().animate({ scrollTop: originalOffset }, 1);
 
 
          $('.activatedresult').find(".comdiv").stop().velocity({
@@ -139,7 +141,7 @@ function onBackKeyDown($commenthideHeights)
 
          }, 800);
 
-         window.scrollTo(0,scrollingDist);
+
 
 
          $('.activatedresult').find(".activatedresultbuttons").fadeOut();
@@ -197,7 +199,7 @@ function onBackKeyDown($commenthideHeights)
          break;
      case "openedResult":
 
-         if ($('body').width()>=768) { // IF TABLET
+         if (tablet) {
 
            $('#results').velocity({
 
@@ -223,7 +225,7 @@ function onBackKeyDown($commenthideHeights)
 
      // Reverse for tablet writing
 
-     if ($('body').width()>=768) { // IF TABLET
+     if (tablet) { 
 
        $('.activepostcomment').toggleClass('tabletpostcomment');
 
@@ -464,7 +466,7 @@ function clickHandlers() { // this binds the click function on results
 
   });
 
-  $(document).on('click', '.menuitem', function () {
+  $(document).on('click', '.menuitem', function() {
       // your function here
       $('#results').attr('style','none');
       $('.activatedresult').remove();
@@ -647,7 +649,7 @@ function clickHandlers() { // this binds the click function on results
 
                         offset = $(this).offset().top;
 
-                        alert(offset);
+                        originalOffset = $(document).scrollTop();
 
 
                         clickHandlers()
@@ -675,7 +677,7 @@ function clickHandlers() { // this binds the click function on results
 
                         });
 
-                        if ($('body').width()>=768) { // IF TABLET
+                        if (tablet) { // IF TABLET
 
                           $('#results').velocity({
 
@@ -816,7 +818,7 @@ function clickHandlers() { // this binds the click function on results
                             $('.activatedresult').find('.timelinehide').fadeOut();
                             $('.activatedresult').find('.debatetext').fadeIn();
 
-                            if ($('body').width()>=768) { // IF TABLET
+                            if (tablet) { // IF TABLET
 
                               width = $(window).width()/2;
 
@@ -955,7 +957,6 @@ function clickHandlers() { // this binds the click function on results
                         $('.activatedresult').find(".resultbody").css("height","90%");
 
                         offset = offset - headerHeight;
-                        originalOffset = $('body').offset().top;
 
                         scrollingDist = $(window).scrollTop();
                         scrollDist = $( this ).offset().top;
@@ -1035,7 +1036,7 @@ function clickHandlers() { // this binds the click function on results
 
                             // Tablet writing mode
 
-                            if ($('body').width()>=768) { // IF TABLET
+                            if (tablet) { // IF TABLET
 
                               $('.activepostcomment').toggleClass('tabletpostcomment');
 

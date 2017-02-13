@@ -755,17 +755,17 @@ h1 {
 
 }
 
-.timelineitem::after{
+/*.timelineitem::after{
   position: relative;
   content: ">";
   top: -58px;
   left: 10px;
-}
+}*/
 
-.first::after{
+/*.first::after{
   content:".";
   color:rgba(0,0,0,0);
-}
+}*/
 
 .docrefs {
   display: none;
@@ -1343,7 +1343,6 @@ color: rgba(0,0,0,0.7);
   -webkit-mask-position: left bottom;
   -webkit-mask-repeat: repeat-x;
   -webkit-mask-size: 100% 100%, 30px 30px, 30px 30px;
-
 }
 
 

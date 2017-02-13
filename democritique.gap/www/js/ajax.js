@@ -3,9 +3,6 @@ function getPosts(type, sorting, pageCount) {
   $('.load-bar').show();
 
 
-  $('.result').last().removeClass('zigzag');
-
-
 
   $.post('http://harryboy.hemsida.eu/php/fetchReports.php',{'page': pageCount, 'type': type, 'sorting': sorting}, function(data) { //ajax command
 
@@ -52,11 +49,10 @@ function getPosts(type, sorting, pageCount) {
       });
 
 
-
-
       $('.load-bar').hide();
 
   });
+  // $('.zigzag').delay(1000).first().toggleClass('zigzag');
 
 }
 
@@ -188,7 +184,7 @@ function getStartPage() {
       type: 'POST',
       url: 'http://harryboy.hemsida.eu/php/fetchGlobalVotesData.php',
       success: function (data) {
-      lineChartData = data;
+      lineChartData = JSON.parse(data);
 
       var ctx = $('#globalvotes');
 

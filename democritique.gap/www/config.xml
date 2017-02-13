@@ -4,7 +4,7 @@
 <widget xmlns     = "http://www.w3.org/ns/widgets"
         xmlns:gap = "http://phonegap.com/ns/1.0"
         id        = "se.lingonbyran.democritique"
-        version   = "1.0.90">
+        version   = "0.99">
 
     <name>Democritique</name>
 
@@ -76,6 +76,7 @@
     <plugin name="cordova-plugin-urlhandler" source="npm">
       <param name="URL_SCHEME" value="democritique" />
     </plugin>
+    <!-- <plugin name="cordova-plugin-firebase" spec="0.1.19" /> -->
 
     <!-- Third party plugins -->
     <!-- A list of available plugins are available at https://build.phonegap.com/plugins -->

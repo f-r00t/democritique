@@ -573,16 +573,16 @@ h1 {
     background-color: white;
     color: #424242; }
 
-.timelineitem::after {
+/*.timelineitem::after{
   position: relative;
   content: ">";
   top: -58px;
-  left: 10px; }
-
-.first::after {
-  content: ".";
-  color: transparent; }
-
+  left: 10px;
+}*/
+/*.first::after{
+  content:".";
+  color:rgba(0,0,0,0);
+}*/
 .docrefs {
   display: none;
   width: 100%;

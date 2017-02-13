@@ -11,6 +11,8 @@ document.addEventListener("deviceready", function(){
     //
     // }
 
+
+
     function handleOpenURL(url) {
       setTimeout(function() {
         alert("received url: " + url);
@@ -52,7 +54,7 @@ document.addEventListener("deviceready", function(){
     // };
     getStartPage(); // New content
 
-    if ($('body').width()>=768) {
+    if (tablet) {
 
       $(window).scroll(function() { // When user scrolls to the bottom
          if($(window).scrollTop() + $(window).height() == $(document).height() && !$('.newstext').length) {

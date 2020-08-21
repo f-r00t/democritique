@@ -4,7 +4,7 @@ function getPosts(type, sorting, pageCount) {
 
 
 
-  $.post('http://harryboy.hemsida.eu/php/fetchReports.php',{'page': pageCount, 'type': type, 'sorting': sorting}, function(data) { //ajax command
+  $.post('http://democritique.lingonbyran.se/php/fetchReports.php',{'page': pageCount, 'type': type, 'sorting': sorting}, function(data) { //ajax command
 
       $(".noresultsfound").remove();
       $("#results").append(data); //append data received from server
@@ -60,7 +60,7 @@ function getPost(dok_id) {
 
   $('.load-bar').show();
 
-  $.post('http://harryboy.hemsida.eu/php/fetchReport.php',{'dok_id': dok_id}, function(data) { //ajax command
+  $.post('http://democritique.lingonbyran.se/php/fetchReport.php',{'dok_id': dok_id}, function(data) { //ajax command
 
       $('#bodyid').append(data);
 
@@ -90,7 +90,7 @@ function getNews(pageCount) {
 
 
 
-  $.post('http://harryboy.hemsida.eu/php/fetchNews.php',{'page': pageCount}, function(data) { //ajax command
+  $.post('http://democritique.lingonbyran.se/php/fetchNews.php',{'page': pageCount}, function(data) { //ajax command
 
       $("#results").append(data); //append data received from server
       colorizeResults();
@@ -124,7 +124,7 @@ function getStartPage() {
 
   $('.load-bar').show();
 
-  $.post('http://harryboy.hemsida.eu/php/fetchStartPage.php', function(data) { //ajax command
+  $.post('http://democritique.lingonbyran.se/php/fetchStartPage.php', function(data) { //ajax command
 
       $("#results").empty();
 
@@ -182,7 +182,7 @@ function getStartPage() {
 
       $.ajax({
       type: 'POST',
-      url: 'http://harryboy.hemsida.eu/php/fetchGlobalVotesData.php',
+      url: 'http://democritique.lingonbyran.se/php/fetchGlobalVotesData.php',
       success: function (data) {
       lineChartData = JSON.parse(data);
 

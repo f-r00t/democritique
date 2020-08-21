@@ -14,14 +14,14 @@ function guid() {
 
 function addUser(id) {
 
-  $.post("http://lingon.funkar.nu/sites/riksdagen/php/adduser.php", {'userid': id} );
+  $.post("http://democritique.lingonbyran.se/php/adduser.php", {'userid': id} );
 
             }
 
 
 function getUserData(id) {
 
-  $.post("http://lingon.funkar.nu/sites/riksdagen/php/userconnect.php", {'userid': id}, function(data) {
+  $.post("http://democritique.lingonbyran.se/php/userconnect.php", {'userid': id}, function(data) {
 
     $("#karma").append(data);
 

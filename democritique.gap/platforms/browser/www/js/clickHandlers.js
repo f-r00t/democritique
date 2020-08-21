@@ -43,12 +43,12 @@ function colorizeComments() {
 
 function colorizeResults() {
 
-
+    return;
+    
     $('.result').each(function () {
 
         var random = parseInt($(this).attr('dbid')) % 10;
         var randomColor = '';
-
 
         switch (random){
             case 1:
@@ -123,7 +123,7 @@ function onBackKeyDown($commenthideHeights)
 
            }, 500);
 
-         } 
+         }
 
          // $('body').stop().velocity({
          //       scrollTop: offset
@@ -225,7 +225,7 @@ function onBackKeyDown($commenthideHeights)
 
      // Reverse for tablet writing
 
-     if (tablet) { 
+     if (tablet) {
 
        $('.activepostcomment').toggleClass('tabletpostcomment');
 
@@ -344,7 +344,7 @@ function commentButtons() {
             comment_id = $(this).parent().parent().parent().attr('comment_id');
             $(this).parent().parent().parent().addClass('activatedcomment');
 
-            $.post('http://harryboy.hemsida.eu/php/comdownvote.php',{'user_id': userID, 'comment_id': comment_id}, function(data) { // Send upvote
+            $.post('http://democritique.lingonbyran.se/php/comdownvote.php',{'user_id': userID, 'comment_id': comment_id}, function(data) { // Send upvote
                 currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
 
                 currentVoteCount = parseInt(currentVoteCount)+parseInt(data.charAt(0)); // Add 1 (or 0 if vote has already been cast)
@@ -385,7 +385,7 @@ function commentButtons() {
 
             $(this).parent().parent().parent().addClass('activatedcomment');
 
-            $.post('http://harryboy.hemsida.eu/php/comupvote.php',{'user_id': userID, 'comment_id': comment_id}, function(data) { // Send upvote
+            $.post('http://democritique.lingonbyran.se/php/comupvote.php',{'user_id': userID, 'comment_id': comment_id}, function(data) { // Send upvote
                 currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
 
                 currentVoteCount = parseInt(currentVoteCount)+parseInt(data.charAt(0)); // Add 1 (or 0 if vote has already been cast)
@@ -438,7 +438,7 @@ function clickHandlers() { // this binds the click function on results
 
     closeMenu()
 
-    $.post('http://harryboy.hemsida.eu/php/fetchProfile.php',{'user_id': userID}, function(data) { //ajax command
+    $.post('http://democritique.lingonbyran.se/php/fetchProfile.php',{'user_id': userID}, function(data) { //ajax command
 
         $('#profile').empty();
         $("#profile").append(data); //append data received from server
@@ -595,7 +595,7 @@ function clickHandlers() { // this binds the click function on results
       $('.load-bar').show();
       $('#compass').show();
 
-      $.post('http://harryboy.hemsida.eu/php/fetchVotes.php',{'user_id': userID}, function(data) { //ajax command
+      $.post('http://democritique.lingonbyran.se/php/fetchVotes.php',{'user_id': userID}, function(data) { //ajax command
 
           $('#compass').empty();
           $('#compasspage').find('.compassresults').remove();
@@ -702,7 +702,7 @@ function clickHandlers() { // this binds the click function on results
                         dok_id = $(this).attr("dok_id"); // The currently read results ID
                         $(this).addClass(dok_id);
 
-                        $.post('http://harryboy.hemsida.eu/php/fetchDocRefs.php',{'dok_id': JSON.stringify(dok_id)}, function(data) { // Get related documents
+                        $.post('http://democritique.lingonbyran.se/php/fetchDocRefs.php',{'dok_id': JSON.stringify(dok_id)}, function(data) { // Get related documents
 
                             $('.activatedresult').find('.activatedresultbuttons').before(data);
 
@@ -719,7 +719,7 @@ function clickHandlers() { // this binds the click function on results
                             $(this).unbind('click');
                             $(this).next().addClass('votingOperationClass'); // Add extra class to the <p> holding amount of votes
 
-                            $.post('http://harryboy.hemsida.eu/php/upvote.php',{'user_id': userID, 'dok_id': JSON.stringify(dok_id)}, function(data) { // Send upvote
+                            $.post('http://democritique.lingonbyran.se/php/upvote.php',{'user_id': userID, 'dok_id': JSON.stringify(dok_id)}, function(data) { // Send upvote
 
                                 var currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
 
@@ -758,7 +758,7 @@ function clickHandlers() { // this binds the click function on results
                             $(this).unbind('click');
                             $(this).next().addClass('votingOperationClass'); // Add extra class to the <p> holding amount of votes
 
-                            $.post('http://harryboy.hemsida.eu/php/downvote.php',{'user_id': userID, 'dok_id': JSON.stringify(dok_id)}, function(data) { // Send upvote
+                            $.post('http://democritique.lingonbyran.se/php/downvote.php',{'user_id': userID, 'dok_id': JSON.stringify(dok_id)}, function(data) { // Send upvote
 
                                 var currentVoteCount = $('.votingOperationClass').text(); // Get current amount of votes
 
@@ -1053,7 +1053,7 @@ function clickHandlers() { // this binds the click function on results
 
                               $('.activepostcomment').height('100%');
                               $('.activatedresult').addClass('fatborderbottom');
-                              
+
 
                               $('#results').fadeOut();
                               $('#results').css('opacity','0');
@@ -1091,8 +1091,8 @@ function clickHandlers() { // this binds the click function on results
 
                                     // Post comment
 
-                                    $.post('http://harryboy.hemsida.eu/php/addcomment.php',{'userid': userID, 'commenttext': JSON.stringify(encodeURIComponent(commentText)), 'parent': 'none', 'dok_id': JSON.stringify(dok_id)}, function(data) {
-                                        $.post('http://harryboy.hemsida.eu/php/comments.php',{'dok_id': dok_id}, function(data) {
+                                    $.post('http://democritique.lingonbyran.se/php/addcomment.php',{'userid': userID, 'commenttext': JSON.stringify(encodeURIComponent(commentText)), 'parent': 'none', 'dok_id': JSON.stringify(dok_id)}, function(data) {
+                                        $.post('http://democritique.lingonbyran.se/php/comments.php',{'dok_id': dok_id}, function(data) {
 
                                                 $("."+commentclass).empty(); // Remove old data
                                                 $("."+commentclass).append(data); // Append data received from server
@@ -1128,7 +1128,7 @@ function clickHandlers() { // this binds the click function on results
 
                         // Get comments
 
-                        $.post('http://harryboy.hemsida.eu/php/comments.php',{'dok_id': dok_id}, function(data) {
+                        $.post('http://democritique.lingonbyran.se/php/comments.php',{'dok_id': dok_id}, function(data) {
 
 
                             $("."+commentclass).append(data); //append data received from server

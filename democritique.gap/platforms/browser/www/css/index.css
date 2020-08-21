@@ -296,35 +296,35 @@ h1 {
   margin: 0px;
   border-bottom: 3px solid #303030; }
 
-.Utrikesdepartementet {
-  border-left: 5px solid #009688; }
+.Utrikesdepartementet::before {
+  background: #009688; }
 
-.Arbetsmarknadsdepartementet {
-  border-left: 5px solid #FF3D00; }
+.Arbetsmarknadsdepartementet::before {
+background: #FF3D00; }
 
-.Näringsdepartementet {
-  border-left: 5px solid #FFAB00; }
+.Näringsdepartementet::before {
+background: #FFAB00; }
 
-.Försvarsdepartementet {
-  border-left: 5px solid #EEFF41; }
+.Försvarsdepartementet::before {
+background: #EEFF41; }
 
-.Kulturdepartementet {
-  border-left: 5px solid #7B1FA2; }
+.Kulturdepartementet::before {
+background: #7B1FA2; }
 
-.Justitiedepartementet {
-  border-left: 5px solid #607D8B; }
+.Justitiedepartementet::before {
+background: #607D8B; }
 
-.Finansdepartementet, .None {
-  border-left: 5px solid #76FF03; }
+.Finansdepartementet::before, .None {
+background: #76FF03; }
 
-.Socialdepartementet {
-  border-left: 5px solid #FF4081; }
+.Socialdepartementet::before {
+background: #FF4081; }
 
-.Miljö- {
-  border-left: 5px solid #76FF03; }
+.Miljö-::before {
+background: #76FF03; }
 
-.Utbildningsdepartementet {
-  border-left: 5px solid #3F51B5; }
+.Utbildningsdepartementet::before {
+background: #3F51B5; }
 
 /*#doclink, #commentlink {
 
@@ -601,7 +601,6 @@ h1 {
   margin-left: 0;
   margin-top: -1%;
   border-radius: 50%;
-  background-color: #303030;
   padding: 4px 7px 4px 7px; }
 
 .KD::before {
@@ -649,6 +648,38 @@ h1 {
 .Arbetsmarknadsdepartementet::before {
   content: "AU";
   padding: 4px 3px 4px 3px; }
+
+.AU {
+  border-left-color: #CDDC39;
+}
+
+.CU {
+  border-left-color: #009688;
+}
+
+.FiU {
+  border-left-color: #FFC107;
+}
+
+.SoU {
+  border-left-color: #F44336;
+}
+
+.FöU {
+  border-left-color: #4b5320;
+}
+
+.JuU {
+  border-left-color: #673AB7;
+}
+
+.KU {
+  border-left-color: white;
+}
+
+.KrU {
+  border-left-color: #9C27B0;
+}
 
 .Civilutskottet::before {
   content: "CU";

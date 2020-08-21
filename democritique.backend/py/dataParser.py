@@ -11,7 +11,6 @@ def percentage(link,links):
 	print (str(i)+"/"+str(length))
 	print str(int((i+1)/float(length)*100))+"%"
 
-
 def getPropsURLs():
 
 
@@ -32,7 +31,6 @@ def getPropsURLs():
 
 	return links
 
-
 def getPropsData(links):
 
 	data = []
@@ -41,7 +39,7 @@ def getPropsData(links):
 
 	for link in links:
 
-		link = 'http:'+str(link)
+		link = 'http:'+str(link)[:-4] + 'xml'
 
 		response = b.open(link).read()
 
@@ -262,8 +260,6 @@ def getVotationData(links):
 
 			databaseConnector.insert_votes(unicode(dok_id, 'utf-8'),unicode(rm, 'utf-8'),unicode(person_id, 'utf-8'),unicode(name, 'utf-8'),unicode(party, 'utf-8'),unicode(vote, 'utf-8'))
 
-
-
 def getRefs(links):
 
 	data = []
@@ -325,7 +321,6 @@ def getRefs(links):
 
 	return data
 
-
 def getMotData(links):
 
 	data = []
@@ -345,6 +340,8 @@ def getMotData(links):
 			except UnicodeEncodeError:
 				print link
 				continue
+
+		link = link[:-4]+'xml'
 
 		try:
 			response = b.open(link).read()
@@ -468,7 +465,7 @@ def getDocRefers(links):
 	for link in links:
 
 		try:
-			link = 'http:'+link.encode('utf-8')
+			link = 'http:'+link.encode('utf-8')[:-4]+'xml'
 		except UnicodeEncodeError:
 			print "Error!!! "+link+" could not be opened!"
 			continue
@@ -569,7 +566,6 @@ def getMissingDocRefers():
 
 	data = getDocRefers(links)
 
-
 def updateMotions():
 
 	dokidslist = databaseConnector.check_motions()
@@ -626,7 +622,6 @@ def updatePropositions():
 	for item in data:
 		databaseConnector.insert_prop(*item)
 
-
 def fixMissingVotes():
 
 	dokidslist = databaseConnector.check_voteless_reports()
@@ -653,8 +648,6 @@ def fixMissingDecisions():
 
 		print dokid[0]
 		getDecision(dokid[0])
-
-
 
 def getDecision(dok_id):
 
@@ -755,61 +748,22 @@ def getBetData2():
 		except AttributeError:
 			print 'wtf';
 
-
-
-
 #
-# links = []
-# links.append("//data.riksdagen.se/voteringlista/?bet=KU20&punkt=&valkrets=&rost=&iid=&sz=500&utformat=xml&gruppering=")
+# updateReports()
 #
-# getVotationData(links)
+#links = getURLs('bet')
+#data = getBetData(links)
 
-
-updateReports()
-
-links = getURLs('bet')
-data = getBetData(links)
-
-for item in data:
-	databaseConnector.insert_bet(*item)
-
-
-getMissingDocRefers()
+#http://data.riksdagen.se/dokumentlista/?sok=H701SoU24&utformat=html&a=s
+#print(data);
+#
+# for item in data:
+# 	databaseConnector.insert_bet(*item)
+#
+#
+#getMissingDocRefers()
 updatePropositions()
 updateMotions()
-fixMissingVotes()
-fixMissingDecisions()
-getBetData2()
-
-
-
-############################--><---#################
-
-# links = getURLs('bet')
-
-
-# for item in data:
-
-
-# 	print item
-# 	print 'Inserted into database'
-
-
-# links = getMotsURLs()
-# data = getMotData(links)
-# #intressents = getMotIntressents(links)
-
-# for item in data:
-# 	databaseConnector.insert_mot(*item)
-
-
-
-
-# Getting Props
-
-# links = getPropsURLs()
-# data = getPropsData(links)
-
-# for item in data:
-
-# 	databaseConnector.insert_prop(*item)
+# fixMissingVotes()
+# fixMissingDecisions()
+# getBetData2()

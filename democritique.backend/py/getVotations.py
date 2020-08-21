@@ -48,7 +48,11 @@ def get_riksdata(fetchLast24h, searchword, *searchargs):
 
    	nbrOfHits = BeautifulSoup(str(nbrOfHits))
 
-   	nbrOfHits = nbrOfHits.b.string
+   	try:
+   		nbrOfHits = nbrOfHits.b.string
+   	except Exception as e:
+   		return
+
 
    	print str(nbrOfHits)
 

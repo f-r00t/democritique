@@ -6,9 +6,9 @@ from datetime import date, datetime, timedelta
 
 def delete_old_items():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -23,9 +23,9 @@ def delete_old_items():
 
 def check_reports():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -41,9 +41,9 @@ def check_reports():
 
 def check_reports2():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -60,9 +60,9 @@ def check_reports2():
 
 def check_voteless_reports():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -78,9 +78,9 @@ def check_voteless_reports():
 
 def get_partyVotes():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -98,9 +98,9 @@ def get_partyVotes():
 
 def check_refless_reports():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -116,9 +116,9 @@ def check_refless_reports():
 
 def check_decisions_reports():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -137,9 +137,9 @@ def check_decisions_reports():
 
 def check_motions():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -155,9 +155,9 @@ def check_motions():
 
 def check_propositions():
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -176,9 +176,9 @@ def check_propositions():
 
 def insert_prop(dok_id, rm, organ, datum, titel, pdf):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -196,9 +196,9 @@ def insert_prop(dok_id, rm, organ, datum, titel, pdf):
 
 def insert_mot(dok_id, rm, party, datum, titel, pdf):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -216,9 +216,9 @@ def insert_mot(dok_id, rm, party, datum, titel, pdf):
 
 def insert_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -236,9 +236,9 @@ def insert_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut,
 
 def update_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut, beslutsdatum, decisionDescription):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -258,9 +258,9 @@ def update_bet(dok_id, dok_id_votes, rm, description, datum, titel, pdf, beslut,
 
 def insert_decision(dok_id, decision_id):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -280,9 +280,9 @@ def insert_decision(dok_id, decision_id):
 
 def insert_description(dok_id, description):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -302,13 +302,13 @@ def insert_description(dok_id, description):
 
 def insert_refs(dok_id, title, doktype, reftype, parent):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
-	operation = ("INSERT INTO docrefs "
+	operation = ("REPLACE INTO docrefs "
 	               "(dok_id, title, doktype, reftype, parent) "
 	               "VALUES (%s, %s, %s, %s, %s)")
 
@@ -323,9 +323,9 @@ def insert_refs(dok_id, title, doktype, reftype, parent):
 
 def insert_votes(dok_id, rm, person_id, name, party, vote):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -343,9 +343,9 @@ def insert_votes(dok_id, rm, person_id, name, party, vote):
 
 def insert_news(descr, title, link, domain, img):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -364,9 +364,9 @@ def insert_news(descr, title, link, domain, img):
 
 def insert_globalvote(party, votes):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
@@ -385,9 +385,9 @@ def insert_globalvote(party, votes):
 
 def insert_globalvote2(party, votes, date):
 
-	cnx = mysql.connector.connect(user='riksdata', password='pY5yjCsRsKFZqSS5',
-	                              host='127.0.0.1',
-	                              database='riksdata')
+	cnx = mysql.connector.connect(user='user', password='password',
+	                              host='host',
+	                              database='database')
 
 	cursor = cnx.cursor()
 
